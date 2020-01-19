@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    fileprivate var viewController: GameViewController?
+    fileprivate var viewController: TouchBarViewController?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -46,7 +46,7 @@ extension AppDelegate: NSTouchBarDelegate, NSTouchBarProvider {
             let item = NSCustomTouchBarItem(identifier: .colorLabel)
             
             if viewController == nil {
-                viewController = GameViewController()
+                viewController = TouchBarViewController()
             }
             item.viewController = viewController
             

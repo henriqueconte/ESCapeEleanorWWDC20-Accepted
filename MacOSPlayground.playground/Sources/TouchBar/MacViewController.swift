@@ -3,9 +3,9 @@ import Cocoa
 import SpriteKit
 
 
-open class TouchBarViewController: NSViewController{
+open class MacViewController: NSViewController{
     
-    public var gameViewController: GameViewController!
+    public var touchBarViewController: TouchBarViewController!
     
     var scene: FillerScene?
     
@@ -43,7 +43,7 @@ open class TouchBarViewController: NSViewController{
     }
 }
 
-extension TouchBarViewController: NSTouchBarDelegate {
+extension MacViewController: NSTouchBarDelegate {
 
     override public func makeTouchBar() -> NSTouchBar? {
         print("make touch bar")
@@ -67,10 +67,10 @@ extension TouchBarViewController: NSTouchBarDelegate {
         switch identifier {
         case NSTouchBarItem.Identifier.colorLabel:
 
-            if gameViewController == nil {
-                gameViewController = GameViewController()
+            if touchBarViewController == nil {
+                touchBarViewController = TouchBarViewController()
             }
-            item.viewController = gameViewController
+            item.viewController = touchBarViewController
             
             return item
 

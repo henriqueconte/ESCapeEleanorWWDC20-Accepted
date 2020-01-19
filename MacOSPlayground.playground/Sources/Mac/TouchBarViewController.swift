@@ -16,7 +16,7 @@ class MyView: NSView {
 
 }
 
-public class GameViewController: NSViewController{
+public class TouchBarViewController: NSViewController{
 
     lazy var skView: SKView = {
         

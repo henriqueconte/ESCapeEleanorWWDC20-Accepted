@@ -7,13 +7,10 @@ var str = "Hello, playground"
 
 print(str)
 
-//let gameViewController = GameViewController()
 
-//gameViewController.view = gameScene
+let macViewController = MacViewController()
 
-let touchBarViewController = TouchBarViewController() 
+PlaygroundPage.current.liveView = macViewController
 
-PlaygroundPage.current.liveView = touchBarViewController
-
-touchBarViewController.view.becomeFirstResponder()
+macViewController.view.becomeFirstResponder()
  
