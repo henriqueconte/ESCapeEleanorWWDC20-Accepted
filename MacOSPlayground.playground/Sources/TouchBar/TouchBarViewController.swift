@@ -11,7 +11,7 @@ open class TouchBarViewController: NSViewController{
     
     lazy var skView: SKView = {
         let gameView = SKView(frame: NSRect(x: 0, y: 0, width: 400, height: 400))
-        gameView.autoresizingMask = [.width, .height]
+        //gameView.autoresizingMask = [.width, .height]
         
         return gameView
     }()
