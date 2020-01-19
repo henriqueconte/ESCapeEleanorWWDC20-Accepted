@@ -1,3 +1,5 @@
+import Foundation
+
 //
 //  GameScene.swift
 //  ProjectTouchBar
@@ -11,35 +13,31 @@ import Foundation
 import SpriteKit
 
 
-class GameScene: SKScene {
+class TouchBarScene: SKScene {
     
     var playerNode: SKSpriteNode?
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        print("did move skscene")
-        
+
+        print("Tamanho touch bar:", view.frame)
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        let node = SKSpriteNode(color: NSColor(red: 100/255, green: 255/255, blue: 100/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
-     //   let node = SKSpriteNode(color: NSColor(red: 0/255, green: 255/255, blue: 0/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
+        let node = SKSpriteNode(color: NSColor(red: 255/255, green: 1/255, blue: 60/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
+        
         addChild(node)
         
         initScene()
         setKeyboardEvents()
-        
-        self.backgroundColor = .red
-        
         
     }
     
     
     func initScene() {
         playerNode = SKSpriteNode()
-        playerNode?.color = NSColor(red: 1/255, green: 100/255, blue: 100/255, alpha: 1.0)
-        playerNode?.size = CGSize(width: 30, height: 30)
+        playerNode?.color = NSColor(red: 1/255, green: 255/255, blue: 20/255, alpha: 1.0)
+        playerNode?.size = CGSize(width: 1, height: 1)
         playerNode?.position = CGPoint(x: 0 , y: 0)
-        
         
         let oneRevolution:SKAction = SKAction.rotate(byAngle: CGFloat.pi * 2, duration: 1)
         let repeatRotation:SKAction = SKAction.repeatForever(oneRevolution)
@@ -47,13 +45,11 @@ class GameScene: SKScene {
         playerNode?.run(repeatRotation)
         
         addChild(playerNode!)
-        
-        print("init scene skscene")
+
     }
     
     func setKeyboardEvents() {
         
-        print("keyboard events skscene")
         NSEvent.addLocalMonitorForEvents(matching: .keyUp) { (event) -> NSEvent? in
             
             switch event.keyCode {
