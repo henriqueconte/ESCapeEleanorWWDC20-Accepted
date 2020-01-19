@@ -27,8 +27,8 @@ class TouchBarScene: SKScene {
         
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        let node = SKSpriteNode(color: NSColor(red: 100/255, green: 1/255, blue: 60/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
-        
+        //let node = SKSpriteNode(color: NSColor(red: 100/255, green: 1/255, blue: 60/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
+        let node = SKSpriteNode(color: NSColor(red: 100/255, green: 1/255, blue: 60/255, alpha: 1.0), size: CGSize(width: 1, height: 1))
         addChild(node)
         
         initScene()
@@ -41,13 +41,13 @@ class TouchBarScene: SKScene {
     func initScene() {
         playerNode = SKSpriteNode()
         playerNode?.color = NSColor(red: 1/255, green: 255/255, blue: 20/255, alpha: 1.0)
-        playerNode?.size = CGSize(width: 0.05, height: 0.3)
+        playerNode?.size = CGSize(width: 0.02189784219, height: 0.5)
         playerNode?.position = CGPoint(x: 0 , y: 0)
         
-        //let oneRevolution:SKAction = SKAction.rotate(byAngle: CGFloat.pi * 2, duration: 1)
-        //let repeatRotation:SKAction = SKAction.repeatForever(oneRevolution)
-        
-        //playerNode?.run(repeatRotation)
+//        let oneRevolution:SKAction = SKAction.rotate(byAngle: CGFloat.pi * 2, duration: 1)
+//        let repeatRotation:SKAction = SKAction.repeatForever(oneRevolution)
+//
+//        playerNode?.run(repeatRotation)
         
         addChild(playerNode!)
 
@@ -73,6 +73,10 @@ class TouchBarScene: SKScene {
             
             return event
         }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        playerNode?.position.x += 0.001
     }
     
     
