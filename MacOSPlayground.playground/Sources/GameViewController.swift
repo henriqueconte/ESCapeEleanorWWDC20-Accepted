@@ -10,6 +10,7 @@ class MyView: NSView {
 
         // #1d161d
         NSColor(red: 0x0/255, green: 0x0/255, blue: 0xFF/255, alpha: 1).setFill()
+
         dirtyRect.fill()
     }
 

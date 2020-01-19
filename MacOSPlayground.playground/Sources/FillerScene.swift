@@ -29,7 +29,6 @@ class FillerScene: SKScene {
         initScene()
         setKeyboardEvents()
         
-        
     }
     
     

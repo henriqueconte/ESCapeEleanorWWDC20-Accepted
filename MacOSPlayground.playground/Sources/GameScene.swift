@@ -21,8 +21,8 @@ class GameScene: SKScene {
         
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        let node = SKSpriteNode(color: NSColor(red: 255/255, green: 100/255, blue: 100/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
-        
+        let node = SKSpriteNode(color: NSColor(red: 100/255, green: 255/255, blue: 100/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
+     //   let node = SKSpriteNode(color: NSColor(red: 0/255, green: 255/255, blue: 0/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
         addChild(node)
         
         initScene()
@@ -37,8 +37,9 @@ class GameScene: SKScene {
     func initScene() {
         playerNode = SKSpriteNode()
         playerNode?.color = NSColor(red: 1/255, green: 100/255, blue: 100/255, alpha: 1.0)
-        playerNode?.size = CGSize(width: 15, height: 15)
+        playerNode?.size = CGSize(width: 30, height: 30)
         playerNode?.position = CGPoint(x: 0 , y: 0)
+        
         
         let oneRevolution:SKAction = SKAction.rotate(byAngle: CGFloat.pi * 2, duration: 1)
         let repeatRotation:SKAction = SKAction.repeatForever(oneRevolution)
