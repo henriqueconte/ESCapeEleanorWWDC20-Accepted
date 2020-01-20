@@ -11,7 +11,6 @@ open class MacViewController: NSViewController{
     
     lazy var skView: SKView = {
         let gameView = SKView(frame: NSRect(x: 0, y: 0, width: 400, height: 400))
-        //gameView.autoresizingMask = [.width, .height]
         
         return gameView
     }()
@@ -21,11 +20,7 @@ open class MacViewController: NSViewController{
     }
     
     override public func loadView() {
-        
-        print("Load view touch bar view controller")
-        view = skView//NSView(frame: NSRect(x: 0, y: 0, width: 400, height: 400))
-
-        //view.addSubview(skView)
+        view = skView
     }
     
     override public func viewDidLayout() {
@@ -33,7 +28,6 @@ open class MacViewController: NSViewController{
     }
     
     override public func viewDidAppear() {
-        print("view did appear touch bar view controller")
         
         if skView.scene == nil {
             scene = FillerScene(size: skView.frame.size)
@@ -46,7 +40,7 @@ open class MacViewController: NSViewController{
 extension MacViewController: NSTouchBarDelegate {
 
     override public func makeTouchBar() -> NSTouchBar? {
-        print("make touch bar")
+
         let touchBar = NSTouchBar()
         
         touchBar.delegate = self
@@ -54,7 +48,6 @@ extension MacViewController: NSTouchBarDelegate {
         
         touchBar.defaultItemIdentifiers = [.colorLabel, .colorScrubber]
         touchBar.customizationAllowedItemIdentifiers = [.colorLabel, .colorScrubber]
-        print("make touch bar end")
         
         return touchBar
     }

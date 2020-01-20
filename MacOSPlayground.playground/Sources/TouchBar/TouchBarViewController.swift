@@ -22,42 +22,34 @@ public class TouchBarViewController: NSViewController{
         
         let gameView = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         
-        //gameView.autoresizingMask = [.width, .height]
-
         return gameView
     }()
-//
-    var scene: GameScene?
-//
+
+    var scene: TouchBarScene?
+
     override public func viewDidLoad() {
         super.viewDidLoad()
 
     }
-//
+
     override public func loadView() {
         
-        view = MyView(frame: .init(origin: .zero, size: .init(width: 100, height: 100)))//SKView(frame: NSRect(x: 0, y: 0, width: 50, height: 50))//skView//NSView(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
+        view = MyView(frame: NSRect(x: 0, y: 0, width: 1, height: 1))
         
         let skview = self.skView
-        
-        skview.frame = view.bounds
-        
-        
+
         view.addSubview(skview)
-        
     }
 
     override public func viewDidLayout() {
         super.viewDidLayout()
-
-//        skView.frame = view.bounds
-
     }
 
     override public func viewDidAppear() {
         if skView.scene == nil {
             
-            scene = GameScene(size: skView.frame.size)
+            scene = TouchBarScene(size: skView.frame.size)
+            
             skView.presentScene(scene!)
         }
     }
