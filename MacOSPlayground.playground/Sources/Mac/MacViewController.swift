@@ -7,7 +7,7 @@ open class MacViewController: NSViewController{
     
     public var touchBarViewController: TouchBarViewController!
     
-    var scene: FillerScene?
+    var scene: OnboardMacScene?
     
     lazy var skView: SKView = {
         let gameView = SKView(frame: NSRect(x: 0, y: 0, width: 400, height: 400))
@@ -30,7 +30,7 @@ open class MacViewController: NSViewController{
     override public func viewDidAppear() {
         
         if skView.scene == nil {
-            scene = FillerScene(size: skView.frame.size)
+            scene = OnboardMacScene(size: skView.frame.size)
             skView.presentScene(scene)
         }
         

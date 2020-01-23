@@ -35,6 +35,8 @@ class TouchBarScene: SKScene {
         initScene()
         setKeyboardEvents()
         
+        let endMenuScene = EndMenuTouchBarScene()
+        view.presentScene(endMenuScene)
         //self.backgroundColor = .yellow
     }
     
@@ -58,7 +60,6 @@ class TouchBarScene: SKScene {
 //        playerNode?.run(repeatRotation)
         
         addChild(playerNode!)
-      //  addChild(newNode)
     }
     
     func setKeyboardEvents() {

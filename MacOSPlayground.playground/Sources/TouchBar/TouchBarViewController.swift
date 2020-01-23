@@ -29,7 +29,6 @@ public class TouchBarViewController: NSViewController{
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override public func loadView() {
