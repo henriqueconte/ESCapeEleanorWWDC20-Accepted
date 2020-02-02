@@ -30,7 +30,7 @@ public class TouchBarViewController: NSViewController{
     override public func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override public func loadView() {
         
         view = MyView(frame: NSRect(x: 0, y: 0, width: 1, height: 1))
