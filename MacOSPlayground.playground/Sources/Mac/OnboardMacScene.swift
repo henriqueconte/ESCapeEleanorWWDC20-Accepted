@@ -22,7 +22,7 @@ class OnboardMacScene: SKScene {
 
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         let node = SKSpriteNode(color: NSColor(red: 1/255, green: 1/255, blue: 60/255, alpha: 1.0), size: CGSize(width: view.frame.size.width, height: view.frame.size.height))
-        
+
         addChild(node)
         
         initScene()

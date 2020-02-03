@@ -48,6 +48,7 @@ public class TouchBarViewController: NSViewController{
         if skView.scene == nil {
             
             scene = TouchBarScene(size: skView.frame.size)
+           
             
             skView.presentScene(scene!)
         }
