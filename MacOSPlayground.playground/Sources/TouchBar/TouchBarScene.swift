@@ -29,7 +29,7 @@ class TouchBarScene: SKScene {
     var touchBarWidthCount: Int = 0
     
     let affectedBitmask: UInt32 = 0b0001
-    let notAffectedBitmask: UInt32 = 12345
+    let notAffectedBitmask: UInt32 = 333333
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -77,7 +77,7 @@ class TouchBarScene: SKScene {
                 let pixelNode = PixelNode(color: .yellow, size: CGSize(width: nodeWidth, height: nodeHeight))
                 pixelNode.position = CGPoint(x: currentWidthPosition, y: currentHeightPosition)
                 pixelNode.anchorPoint = CGPoint(x: 0, y: 0)
-                pixelNode.lightingBitMask = 0b0001
+                pixelNode.lightingBitMask = affectedBitmask
                 applyAffectedBitmask(node: pixelNode)
                 
                 addChild(pixelNode)
@@ -196,11 +196,11 @@ class TouchBarScene: SKScene {
     }
     
     func applyAffectedBitmask(node: SKNode) {
-        node.physicsBody?.categoryBitMask = 0b0001
+        node.physicsBody?.categoryBitMask = affectedBitmask
     }
     
     func applyNotAffectedBitmask(node: SKNode) {
-        node.physicsBody?.categoryBitMask = 333333
+        node.physicsBody?.categoryBitMask = notAffectedBitmask
     }
     
     override func update(_ currentTime: TimeInterval) {
