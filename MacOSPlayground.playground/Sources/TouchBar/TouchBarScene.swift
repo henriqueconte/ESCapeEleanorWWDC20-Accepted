@@ -22,7 +22,8 @@ class TouchBarScene: SKScene {
     var playerNodeYPosition: [Int] = [1,2,3]
     var playerCentralNode: PixelNode?
 
-    var playerLightNode: SKLightNode?
+    var playerLightNodes: [SKLightNode] = []
+    var removedLightNodes: Int = 0
     
     var backgroundNodeList: [Int : [PixelNode]] = [ : ]
     var touchBarHeightCount: Int = 0
@@ -73,6 +74,9 @@ class TouchBarScene: SKScene {
         
         while currentHeightPosition < 1 {
             
+            touchBarWidthCount = 0
+            touchBarHeightCount += 1
+            
             while currentWidthPosition < 1 {
                 let pixelNode = PixelNode(color: .yellow, size: CGSize(width: nodeWidth, height: nodeHeight))
                 pixelNode.position = CGPoint(x: currentWidthPosition, y: currentHeightPosition)
@@ -92,9 +96,8 @@ class TouchBarScene: SKScene {
             
             currentHeightPosition += nodeHeight + separatorSize
             arrayLineCount += 1
-            touchBarHeightCount += 1
             currentWidthPosition = 0
-            touchBarWidthCount = 0
+            
             pixelLine = []
         }
         
@@ -114,10 +117,24 @@ class TouchBarScene: SKScene {
             case KeyIdentifiers.rightArrow.rawValue:
                 self.movePlayerNodes(direction: .horizontal, value: 1)
 
-//            case KeyIdentifiers.space.rawValue:
-//
-//            self.playerNode?.run(SKAction.resize(toWidth: 0.03503649635, height: 0.8, duration: 1))
+            case KeyIdentifiers.space.rawValue:
+                
+                if self.playerLightNodes.isEmpty == false {
+                    
+                    if self.playerLightNodes.count == 1 {
 
+                        self.playerLightNodes.first?.removeFromParent()
+                        self.playerLightNodes.first?.falloff = 1.0
+                        self.addChild(self.playerLightNodes.first ?? SKNode())
+                    }
+                    else {
+                        self.playerLightNodes.last?.removeFromParent()
+                        self.playerLightNodes.removeLast()
+                        self.removedLightNodes += 1
+                    }
+
+                }
+                
             default:
                 return event
             }
@@ -151,48 +168,71 @@ class TouchBarScene: SKScene {
             element.color = .yellow
             element.pixelCategory = .background
         }
-        playerLightNode?.removeFromParent()
-        playerLightNode = nil
+        
+        for element in playerLightNodes {
+            element.removeFromParent()
+        }
+        
+        playerLightNodes.removeAll()
     }
     
     func movePlayerNodes(direction: Direction, value: Int) {
-        hidePlayerNodes()
-        playerNodes = []
         
-        switch direction {
-        case .vertical:
-            for i in 0..<playerNodeYPosition.count {
-                playerNodeYPosition[i] += value
-            }
-            
-        case .horizontal:
-            for i in 0..<playerNodeXPosition.count {
-                playerNodeXPosition[i] += value
+        var movementAllowed: Bool = true
+
+        for element in playerNodeXPosition {
+            if (element + value > touchBarWidthCount - 1 || element + value < 0) && direction == .horizontal {
+                movementAllowed = false
             }
         }
         
-        createPlayerNodes()
+        for element in playerNodeYPosition {
+            if (element + value > touchBarHeightCount || element + value < 0) && direction == .vertical {
+                movementAllowed = false
+            }
+        }
         
+        if movementAllowed {
+            
+            hidePlayerNodes()
+            playerNodes = []
+            
+            switch direction {
+            case .vertical:
+                for i in 0..<playerNodeYPosition.count {
+                    playerNodeYPosition[i] += value
+                }
+                
+            case .horizontal:
+                for i in 0..<playerNodeXPosition.count {
+                    playerNodeXPosition[i] += value
+                }
+            }
+            createPlayerNodes()
+        }
     }
     
     func setLightNode() {
-    
-        if playerLightNode == nil {
-
+        
+        if playerLightNodes.isEmpty {
+            
             playerCentralNode?.zPosition = 100
             
-            playerLightNode = SKLightNode()
-            playerLightNode?.position = playerCentralNode?.position ?? CGPoint(x: 0, y: 0)
-            playerLightNode?.ambientColor = .clear
-            playerLightNode?.lightColor = .white
-            playerLightNode?.falloff = 0
-            playerLightNode?.zPosition = 1
-            
-            applyAffectedBitmask(node: playerLightNode!)
-
-            addChild(playerLightNode!)
+            for _ in 0..<3 - removedLightNodes {
+                let lightNode = SKLightNode()
+                lightNode.position = CGPoint(x: (playerCentralNode?.position.x ?? 0) + 0.004,
+                                             y: (playerCentralNode?.position.y ?? 0) + 0.05)
+                lightNode.ambientColor = .clear
+                lightNode.lightColor = .white
+                lightNode.falloff = 0
+                lightNode.zPosition = 1
+                
+                applyAffectedBitmask(node: lightNode)
+                playerLightNodes.append(lightNode)
+                
+                addChild(lightNode)
+            }
         }
-        
     }
     
     func applyAffectedBitmask(node: SKNode) {
