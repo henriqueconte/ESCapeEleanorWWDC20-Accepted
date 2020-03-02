@@ -1,5 +1,3 @@
-import Foundation
-
 //
 //  GameScene.swift
 //  ProjectTouchBar
@@ -32,6 +30,8 @@ class TouchBarScene: SKScene {
     let affectedBitmask: UInt32 = 0b0001
     let notAffectedBitmask: UInt32 = 333333
     
+    var macScene: MacScene?
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
 
@@ -41,18 +41,19 @@ class TouchBarScene: SKScene {
         
         self.anchorPoint = CGPoint(x: 0, y: 0)
         
-        let node = SKSpriteNode(color: NSColor(red: 1/255, green: 80/255, blue: 60/255, alpha: 1.0), size: CGSize(width: 1, height: 1))
+        let node = SKSpriteNode(color: NSColor(red: 1/255, green: 80/255, blue: 60/255, alpha: 0), size: CGSize(width: 1, height: 1))
         node.position = CGPoint(x: 0, y: 0)
         node.anchorPoint = CGPoint(x: 0, y: 0)
         applyAffectedBitmask(node: node)
         node.lightingBitMask = affectedBitmask
         
         addChild(node)
-        
-        fillScreen(nodeWidth: MultiplierFactor.proportionalWidth(height: 0.19), nodeHeight: 0.19, separatorSize: 0.01)
+        //fillScreen(nodeWidth: MultiplierFactor.proportionalWidth(height: 0.19), nodeHeight: 0.19, separatorSize: 0.01)
+        fillScreen(nodeWidth: MultiplierFactor.proportionalWidth(height: 0.33), nodeHeight: 0.33, separatorSize: 0)
         initScene()
         setKeyboardEvents()
         setLightNode()
+        addRock(onPoint: CGPoint(x: 0.5, y: 0.5))
     }
     
     
@@ -64,6 +65,17 @@ class TouchBarScene: SKScene {
 //        let repeatRotation:SKAction = SKAction.repeatForever(oneRevolution)
 //
 //        playerNode?.run(repeatRotation)
+    }
+    
+    func addRock(onPoint: CGPoint) {
+        let rockNode = SKSpriteNode(texture: SKTexture(imageNamed: "darkRock"))
+        rockNode.size = CGSize(width: MultiplierFactor.proportionalWidth(height: 0.42), height: 0.42)
+        rockNode.position = onPoint
+        applyAffectedBitmask(node: rockNode)
+        rockNode.lightingBitMask = affectedBitmask
+        rockNode.zPosition = 100000
+        
+        addChild(rockNode)
     }
     
     func fillScreen(nodeWidth: CGFloat, nodeHeight: CGFloat, separatorSize: CGFloat) {
@@ -90,6 +102,13 @@ class TouchBarScene: SKScene {
                 pixelLine.append(pixelNode)
             
                 touchBarWidthCount += 1
+                
+                if touchBarHeightCount == 1 {
+                    pixelNode.texture = SKTexture(imageNamed: "groundTexture")
+                }
+                else if touchBarHeightCount > 1 {
+                    pixelNode.texture = SKTexture(imageNamed: "stoneTexture3")
+                }
             }
                 
             backgroundNodeList[arrayLineCount] = pixelLine
@@ -105,7 +124,7 @@ class TouchBarScene: SKScene {
     
     func setKeyboardEvents() {
         
-        NSEvent.addLocalMonitorForEvents(matching: .keyUp) { (event) -> NSEvent? in
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event) -> NSEvent? in
 
             switch event.keyCode {
             case KeyIdentifiers.upArrow.rawValue:
@@ -126,6 +145,8 @@ class TouchBarScene: SKScene {
                         self.playerLightNodes.first?.removeFromParent()
                         self.playerLightNodes.first?.falloff = 1.0
                         self.addChild(self.playerLightNodes.first ?? SKNode())
+                        
+                        self.macScene?.backgroundNode?.color = NSColor(red: 255/255, green: 1/255, blue: 100/255, alpha: 0.8)
                     }
                     else {
                         self.playerLightNodes.last?.removeFromParent()

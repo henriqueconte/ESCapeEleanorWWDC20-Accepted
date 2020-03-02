@@ -26,7 +26,9 @@ public class TouchBarViewController: NSViewController{
     }()
 
     var scene: TouchBarScene?
-
+    var macScene: MacScene?
+    
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -48,7 +50,7 @@ public class TouchBarViewController: NSViewController{
         if skView.scene == nil {
             
             scene = TouchBarScene(size: skView.frame.size)
-           
+            scene?.macScene = macScene
             
             skView.presentScene(scene!)
         }
