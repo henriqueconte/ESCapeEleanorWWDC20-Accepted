@@ -19,9 +19,10 @@ class TouchBarScene: SKScene {
     var playerNodeXPosition: [Int] = [5,4,5,6,5]
     var playerNodeYPosition: [Int] = [1,2,3]
     var playerCentralNode: PixelNode?
-
     var playerLightNodes: [SKLightNode] = []
     var removedLightNodes: Int = 0
+    
+    var charNode: MainCharacter?
     
     var backgroundNodeList: [Int : [PixelNode]] = [ : ]
     var touchBarHeightCount: Int = 0
@@ -54,6 +55,7 @@ class TouchBarScene: SKScene {
         setKeyboardEvents()
         setLightNode()
         addRock(onPoint: CGPoint(x: 0.5, y: 0.5))
+        addPlayer(onPoint: CGPoint(x: 0.05, y: 0.5))
     }
     
     
@@ -76,6 +78,18 @@ class TouchBarScene: SKScene {
         rockNode.zPosition = 100000
         
         addChild(rockNode)
+    }
+    
+    func addPlayer(onPoint: CGPoint) {
+        charNode = MainCharacter(texture: SKTexture(imageNamed: "charRight1"), size: CGSize(width: MultiplierFactor.proportionalWidth(height: 0.48),
+                                                                                                height: 0.48))
+        charNode?.texture = SKTexture(imageNamed: "charRight1")
+        charNode?.position = onPoint
+        applyAffectedBitmask(node: charNode!)
+        charNode?.lightingBitMask = affectedBitmask
+        charNode?.zPosition = 100000
+        
+        addChild(charNode!)
     }
     
     func fillScreen(nodeWidth: CGFloat, nodeHeight: CGFloat, separatorSize: CGFloat) {
