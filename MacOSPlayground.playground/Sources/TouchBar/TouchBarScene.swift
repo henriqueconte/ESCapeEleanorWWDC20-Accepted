@@ -50,12 +50,13 @@ class TouchBarScene: SKScene {
         
         addChild(node)
         //fillScreen(nodeWidth: MultiplierFactor.proportionalWidth(height: 0.19), nodeHeight: 0.19, separatorSize: 0.01)
-        fillScreen(nodeWidth: MultiplierFactor.proportionalWidth(height: 0.33), nodeHeight: 0.33, separatorSize: 0)
+        fillScreen(nodeWidth: MultiplierFactor.proportionalWidth(height: 0.2), nodeHeight: 0.2, separatorSize: 0)
         initScene()
         setKeyboardEvents()
+        addPlayer(onPoint: CGPoint(x: 0.05, y: 0.5))
         setLightNode()
         addRock(onPoint: CGPoint(x: 0.5, y: 0.5))
-        addPlayer(onPoint: CGPoint(x: 0.05, y: 0.5))
+        
     }
     
     
@@ -81,8 +82,8 @@ class TouchBarScene: SKScene {
     }
     
     func addPlayer(onPoint: CGPoint) {
-        charNode = MainCharacter(texture: SKTexture(imageNamed: "charRight1"), size: CGSize(width: MultiplierFactor.proportionalWidth(height: 0.48),
-                                                                                                height: 0.48))
+        charNode = MainCharacter(texture: SKTexture(imageNamed: "charRight1"), size: CGSize(width: MultiplierFactor.proportionalWidth(height: 0.42),
+                                                                                                height: 0.6))
         charNode?.texture = SKTexture(imageNamed: "charRight1")
         charNode?.position = onPoint
         applyAffectedBitmask(node: charNode!)
@@ -142,14 +143,21 @@ class TouchBarScene: SKScene {
 
             switch event.keyCode {
             case KeyIdentifiers.upArrow.rawValue:
-                self.movePlayerNodes(direction: .vertical, value: 1)
+                self.movePlayerNodes(direction: .vertical, distance: 1)
+                self.charNode?.moveRight()
+                
             case KeyIdentifiers.downArrow.rawValue:
-                self.movePlayerNodes(direction: .vertical, value: -1)
-            case KeyIdentifiers.leftArrow.rawValue:
-                self.movePlayerNodes(direction: .horizontal, value: -1)
-            case KeyIdentifiers.rightArrow.rawValue:
-                self.movePlayerNodes(direction: .horizontal, value: 1)
+                self.movePlayerNodes(direction: .vertical, distance: -1)
+                self.charNode?.moveLeft()
 
+            case KeyIdentifiers.leftArrow.rawValue:
+                self.movePlayerNodes(direction: .horizontal, distance: -1)
+                self.charNode?.moveLeft()
+                
+            case KeyIdentifiers.rightArrow.rawValue:
+                self.movePlayerNodes(direction: .horizontal, distance: 1)
+                self.charNode?.moveRight()
+                
             case KeyIdentifiers.space.rawValue:
                 
                 if self.playerLightNodes.isEmpty == false {
@@ -189,6 +197,10 @@ class TouchBarScene: SKScene {
         
         playerCentralNode = playerNodes?[Int((playerNodes?.count ?? 0) / 2)]
         
+        //charNode?.position.x = playerCentralNode?.position.x ?? 0
+        charNode?.setNewPosition(onPoint: CGPoint(x: playerCentralNode?.position.x ?? 0, y: charNode?.position.y ?? 0),
+                                 duration: 0.1)
+        
         for element in playerNodes ?? [] {
             element.color = NSColor(red: 1/255, green: 255/255, blue: 20/255, alpha: 1.0)
             element.pixelCategory = .player
@@ -211,18 +223,18 @@ class TouchBarScene: SKScene {
         playerLightNodes.removeAll()
     }
     
-    func movePlayerNodes(direction: Direction, value: Int) {
+    func movePlayerNodes(direction: Direction, distance: Int) {
         
         var movementAllowed: Bool = true
 
         for element in playerNodeXPosition {
-            if (element + value > touchBarWidthCount - 1 || element + value < 0) && direction == .horizontal {
+            if (element + distance > touchBarWidthCount - 1 || element + distance < 0) && direction == .horizontal {
                 movementAllowed = false
             }
         }
         
         for element in playerNodeYPosition {
-            if (element + value > touchBarHeightCount || element + value < 0) && direction == .vertical {
+            if (element + distance > touchBarHeightCount || element + distance < 0) && direction == .vertical {
                 movementAllowed = false
             }
         }
@@ -235,12 +247,12 @@ class TouchBarScene: SKScene {
             switch direction {
             case .vertical:
                 for i in 0..<playerNodeYPosition.count {
-                    playerNodeYPosition[i] += value
+                    playerNodeYPosition[i] += distance
                 }
                 
             case .horizontal:
                 for i in 0..<playerNodeXPosition.count {
-                    playerNodeXPosition[i] += value
+                    playerNodeXPosition[i] += distance
                 }
             }
             createPlayerNodes()
@@ -253,10 +265,12 @@ class TouchBarScene: SKScene {
             
             playerCentralNode?.zPosition = 100
             
-            for _ in 0..<3 - removedLightNodes {
+            for _ in 0..<4 - removedLightNodes {
                 let lightNode = SKLightNode()
+//                lightNode.position = CGPoint(x: (playerCentralNode?.position.x ?? 0) + 0.004,
+//                                             y: (playerCentralNode?.position.y ?? 0) + 0.05)
                 lightNode.position = CGPoint(x: (playerCentralNode?.position.x ?? 0) + 0.004,
-                                             y: (playerCentralNode?.position.y ?? 0) + 0.05)
+                                             y: 1.1)
                 lightNode.ambientColor = .clear
                 lightNode.lightColor = .white
                 lightNode.falloff = 0

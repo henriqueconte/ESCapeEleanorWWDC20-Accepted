@@ -18,18 +18,17 @@ class MainCharacter: SKSpriteNode {
     }
     
     func moveLeft() {
-        self.position.x -= 1
         rightAssetCount = 1
         
         if leftAssetCount > 3 {
             leftAssetCount = 1
         }
-        
         self.texture = SKTexture(imageNamed: "charLeft\(leftAssetCount)")
+        
+        leftAssetCount += 1
     }
     
     func moveRight() {
-        self.position.x += 1
         leftAssetCount = 1
         
         if rightAssetCount > 3 {
@@ -37,5 +36,12 @@ class MainCharacter: SKSpriteNode {
         }
         
         self.texture = SKTexture(imageNamed: "charRight\(rightAssetCount)")
+        
+        rightAssetCount += 1
+    }
+    
+    func setNewPosition(onPoint: CGPoint, duration: TimeInterval) {
+        let moveAction = SKAction.move(to: onPoint, duration: duration)
+        self.run(moveAction)
     }
 }
