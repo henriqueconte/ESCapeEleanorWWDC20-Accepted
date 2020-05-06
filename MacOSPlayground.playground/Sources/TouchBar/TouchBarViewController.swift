@@ -2,7 +2,6 @@ import AppKit
 import Cocoa
 import SpriteKit
 
-
 class MyView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
@@ -19,9 +18,10 @@ class MyView: NSView {
 public class TouchBarViewController: NSViewController{
 
     lazy var skView: SKView = {
-        
-        let gameView = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
-        
+
+        let gameView = SKView(frame: self.view.bounds)
+        gameView.autoresizingMask = [.width, .height]
+
         return gameView
     }()
 
@@ -34,25 +34,17 @@ public class TouchBarViewController: NSViewController{
     }
     
     override public func loadView() {
-        
-        view = MyView(frame: NSRect(x: 0, y: 0, width: 1, height: 1))
-        
-        let skview = self.skView
-
-        view.addSubview(skview)
-    }
-
-    override public func viewDidLayout() {
-        super.viewDidLayout()
+        view = NSView()
+        view.addSubview(skView)
     }
 
     override public func viewDidAppear() {
         if skView.scene == nil {
-            
-            scene = TouchBarScene(size: skView.frame.size)
+
+            scene = TouchBarScene(fileNamed: "TouchBarScene")!
             scene?.macScene = macScene
             
-            skView.presentScene(scene!)
+            skView.presentScene(scene)
         }
     }
 }
