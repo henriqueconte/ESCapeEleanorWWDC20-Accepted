@@ -16,6 +16,7 @@ class NewPlayer: SKSpriteNode {
     private var leftAssetCount: Int = 1
     private var rightAssetCount: Int = 1
     private var lightNodes: [SKLightNode] = []
+    var canMove: Bool = true
     
     override init(texture: SKTexture!, color: NSColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
@@ -25,35 +26,41 @@ class NewPlayer: SKSpriteNode {
     }
     
     func moveRight() {
-        if self.position.x < 676 {
-            setNewPosition(newPoint: CGPoint(x: self.position.x + 7, y: self.position.y), duration: 0.1)
+        
+        if canMove {
+            if self.position.x < 676 {
+                setNewPosition(newPoint: CGPoint(x: self.position.x + 7, y: self.position.y), duration: 0.1)
+            }
+            
+            leftAssetCount = 1
+            
+            if rightAssetCount > 3 {
+                rightAssetCount = 1
+            }
+            
+            self.texture = SKTexture(imageNamed: "charRight\(rightAssetCount)")
+            
+            rightAssetCount += 1
         }
-        
-        leftAssetCount = 1
-        
-        if rightAssetCount > 3 {
-            rightAssetCount = 1
-        }
-        
-        self.texture = SKTexture(imageNamed: "charRight\(rightAssetCount)")
-        
-        rightAssetCount += 1
         
     }
     
     func moveLeft() {
-        if self.position.x > 7 {
-            setNewPosition(newPoint: CGPoint(x: self.position.x - 7, y: self.position.y), duration: 0.1)
+        
+        if canMove {
+            if self.position.x > 7 {
+                setNewPosition(newPoint: CGPoint(x: self.position.x - 7, y: self.position.y), duration: 0.1)
+            }
+            
+            rightAssetCount = 1
+            
+            if leftAssetCount > 3 {
+                leftAssetCount = 1
+            }
+            self.texture = SKTexture(imageNamed: "charLeft\(leftAssetCount)")
+            
+            leftAssetCount += 1
         }
-        
-        rightAssetCount = 1
-        
-        if leftAssetCount > 3 {
-            leftAssetCount = 1
-        }
-        self.texture = SKTexture(imageNamed: "charLeft\(leftAssetCount)")
-        
-        leftAssetCount += 1
         
     }
     

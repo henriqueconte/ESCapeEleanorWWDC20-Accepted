@@ -16,6 +16,7 @@ class Coffee: SKSpriteNode {
         super.init(texture: texture, color: color, size: size)
         self.name = "coffee"
         setDefaultPhysicsBody()
+        setBounce()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +43,17 @@ class Coffee: SKSpriteNode {
         }
     }
     
+    func createInstructions() -> SKLabelNode {
+        let instruction = SKLabelNode(text: "Press enter to take the coffee")
+        instruction.fontSize = 15
+        instruction.fontName = "Arial Rounded MT Bold"
+        instruction.fontColor = .white
+        instruction.zPosition = 1
+        instruction.alpha = 0
+        
+        return instruction
+    }
+    
     private func setDefaultPhysicsBody() {
         let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width * 0.5,
                                                             height: self.frame.height * 0.5)
@@ -52,6 +64,15 @@ class Coffee: SKSpriteNode {
         physicsBody.collisionBitMask = 0
         
         self.physicsBody = physicsBody
+    }
+    
+    private func setBounce() {
+        let moveUp = SKAction.move(by: CGVector(dx: 0, dy: 2), duration: 0.2)
+        let moveDown = SKAction.move(by: CGVector(dx: 0, dy: -2), duration: 0.1)
+        let gap = SKAction.wait(forDuration: 1.7)
+        let loopAction = SKAction.sequence([moveUp, moveDown, gap])
+        
+        self.run(SKAction.repeatForever(loopAction))
     }
     
 }

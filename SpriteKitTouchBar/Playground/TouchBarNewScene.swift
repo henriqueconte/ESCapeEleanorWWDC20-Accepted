@@ -87,7 +87,16 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
         
         if (bodyA.node?.name == "player" || bodyA.node?.name == "coffee") && (bodyB.node?.name == "player" || bodyB.node?.name == "coffee") {
             
-            coffee?.pickCoffee()
+            let instructions = coffee?.createInstructions()
+            let fadeIn = SKAction.fadeIn(withDuration: 1.5)
+            
+            instructions?.position = CGPoint(x: viewWidth * 0.35, y: viewHeight * 0.4)
+            
+            instructions?.run(fadeIn)
+            
+            addChild(instructions!)
+            
+            playerNode?.canMove = false
         }
     }
 }
