@@ -10,6 +10,7 @@ import Foundation
 
 
 enum KeyIdentifiers: UInt16 {
+    case enter = 36
     case space = 49
     case leftArrow = 123
     case rightArrow = 124

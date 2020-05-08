@@ -14,4 +14,5 @@ enum PuzzleState {
     case monsters
     case wall
     case macbook
+    case none
 }

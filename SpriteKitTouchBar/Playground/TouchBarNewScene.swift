@@ -15,12 +15,13 @@ class TouchBarNewScene: SKScene {
     var backgroundNode: SKSpriteNode?
     var playerNode: NewPlayer?
     var coffee: Coffee?
+    var instructions: SKLabelNode?
     
     let viewWidth: CGFloat = 690
     let viewHeight: CGFloat = 30
     let groundPosition: CGFloat = 18
     
-    var puzzleState: PuzzleState = .coffee
+    var puzzleState: PuzzleState = .none
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -70,6 +71,16 @@ class TouchBarNewScene: SKScene {
             case KeyIdentifiers.rightArrow.rawValue:
                 self.playerNode?.moveRight()
                 
+            case KeyIdentifiers.enter.rawValue:
+                if self.puzzleState == .coffee {
+                    let fadeOut = SKAction.fadeOut(withDuration: 1)
+                    
+                    self.instructions?.run(fadeOut)
+                    self.coffee?.disappear()
+                    self.playerNode?.canMove = true
+                    
+                }
+                
             default:
                 return event
             }
@@ -87,7 +98,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
         
         if (bodyA.node?.name == "player" || bodyA.node?.name == "coffee") && (bodyB.node?.name == "player" || bodyB.node?.name == "coffee") {
             
-            let instructions = coffee?.createInstructions()
+            instructions = coffee?.createInstructions()
             let fadeIn = SKAction.fadeIn(withDuration: 1.5)
             
             instructions?.position = CGPoint(x: viewWidth * 0.35, y: viewHeight * 0.4)
@@ -97,6 +108,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             addChild(instructions!)
             
             playerNode?.canMove = false
+            puzzleState = .coffee
         }
     }
 }

@@ -23,7 +23,7 @@ class Coffee: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func pickCoffee() {
+    func disappear() {
         self.removeAllActions()
         
         let explosion = SKEmitterNode(fileNamed: "Explosion")!
