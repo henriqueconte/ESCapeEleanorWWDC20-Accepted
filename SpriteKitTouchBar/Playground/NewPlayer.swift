@@ -114,6 +114,37 @@ class NewPlayer: SKSpriteNode {
         }
     }
     
+    func animateLightNodes(completion: @escaping () -> ()) {
+ 
+        let reduceLight = SKAction.customAction(withDuration: 0.04) {
+            (_, time) -> Void in
+            
+            for element in self.lightNodes {
+                element.falloff += 0.01
+            }
+        }
+        
+        let increaseLight = SKAction.customAction(withDuration: 0.04) {
+            (_, time) -> Void in
+            
+            for element in self.lightNodes {
+                element.falloff -= 0.15
+            }
+        }
+        
+        let reduceLightSequence = SKAction.sequence([reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight])
+        
+        let increaseLightSequence = SKAction.sequence([increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight])
+        
+        let loop = SKAction.sequence([reduceLightSequence, increaseLightSequence, reduceLightSequence, increaseLightSequence])
+        
+        
+        self.run(loop, completion: {
+            completion()
+        })
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

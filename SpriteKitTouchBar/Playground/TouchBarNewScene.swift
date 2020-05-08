@@ -77,7 +77,10 @@ class TouchBarNewScene: SKScene {
                     
                     self.instructions?.run(fadeOut)
                     self.coffee?.disappear()
-                    self.playerNode?.canMove = true
+                    
+                    self.playerNode?.animateLightNodes {
+                        self.playerNode?.canMove = true
+                    }
                     
                 }
                 
