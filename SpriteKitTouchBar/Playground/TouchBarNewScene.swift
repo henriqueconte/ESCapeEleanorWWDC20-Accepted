@@ -16,6 +16,8 @@ class TouchBarNewScene: SKScene {
     var playerNode: NewPlayer?
     var coffee: Coffee?
     var instructions: SKLabelNode?
+    var hole: Hole?
+    var column: Column?
     
     let viewWidth: CGFloat = 690
     let viewHeight: CGFloat = 30
@@ -30,6 +32,8 @@ class TouchBarNewScene: SKScene {
         setPlayer()
         setKeyboardEvents()
         setCoffe()
+        setHole()
+        setColumn()
     }
     
     private func setBackground() {
@@ -55,9 +59,31 @@ class TouchBarNewScene: SKScene {
     private func setCoffe() {
         coffee = Coffee(texture: SKTexture(imageNamed: "coffee"), color: .clear, size: CGSize(width: 13, height: 14))
         coffee?.position = CGPoint(x: viewWidth * 0.9, y: groundPosition + 2)
-        coffee?.lightingBitMask = BitmaskConstants.affectedByLight
         
         addChild(coffee!)
+    }
+    
+    private func setHole() {
+        hole = Hole(texture: SKTexture(imageNamed: "hole"), color: .clear, size: CGSize(width: 35, height: 19))
+        hole?.position = CGPoint(x: viewWidth * 0.05, y: groundPosition - 7)
+        
+        addChild(hole!)
+    }
+    
+    private func setColumn() {
+        column = Column(texture: SKTexture(imageNamed: "column"), color: .clear, size: CGSize(width: 9, height: 25))
+        column?.position = CGPoint(x: viewWidth * 0.12, y: groundPosition + 2)
+        
+        addChild(column!)
+    }
+    
+    private func startMonstersState() {
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 1)
+        
+        instructions?.text = "Look! An exit has just appeared!"
+        instructions?.run(fadeIn)
+        hole?.appear()
     }
     
     func setKeyboardEvents() {
@@ -75,13 +101,16 @@ class TouchBarNewScene: SKScene {
                 if self.puzzleState == .coffee {
                     let fadeOut = SKAction.fadeOut(withDuration: 1)
                     
-                    self.instructions?.run(fadeOut)
                     self.coffee?.disappear()
                     
                     self.playerNode?.animateLightNodes {
                         self.playerNode?.canMove = true
                     }
                     
+                    self.instructions?.run(fadeOut) {
+                        self.startMonstersState()
+                    }
+                   
                 }
                 
             default:

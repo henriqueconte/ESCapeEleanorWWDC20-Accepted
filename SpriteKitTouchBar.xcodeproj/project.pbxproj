@@ -14,6 +14,8 @@
 		803CD21924648CA00056B269 /* BitmaskConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21824648CA00056B269 /* BitmaskConstants.swift */; };
 		803CD21B246496100056B269 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21A246496100056B269 /* Coffee.swift */; };
 		803CD21D2464A1200056B269 /* PuzzleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21C2464A1200056B269 /* PuzzleState.swift */; };
+		80A7959C2469B29100B27818 /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959B2469B29100B27818 /* Hole.swift */; };
+		80A7959E2469BB4A00B27818 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959D2469BB4A00B27818 /* Column.swift */; };
 		80AC16A42450BA6D002D1AC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC16A32450BA6D002D1AC3 /* AppDelegate.swift */; };
 		80AC16A62450BA6D002D1AC3 /* MacViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AC16A52450BA6D002D1AC3 /* MacViewController.swift */; };
 		80AC16A82450BA71002D1AC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80AC16A72450BA71002D1AC3 /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 		803CD21824648CA00056B269 /* BitmaskConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmaskConstants.swift; sourceTree = "<group>"; };
 		803CD21A246496100056B269 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		803CD21C2464A1200056B269 /* PuzzleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleState.swift; sourceTree = "<group>"; };
+		80A7959B2469B29100B27818 /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
+		80A7959D2469BB4A00B27818 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		80AC16A02450BA6D002D1AC3 /* SpriteKitTouchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpriteKitTouchBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AC16A32450BA6D002D1AC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80AC16A52450BA6D002D1AC3 /* MacViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacViewController.swift; sourceTree = "<group>"; };
@@ -164,9 +168,11 @@
 			children = (
 				80D254CE24634103003D5251 /* TouchBar */,
 				803CD2142463449D0056B269 /* TouchBarNewScene.swift */,
+				80A7959D2469BB4A00B27818 /* Column.swift */,
 				803CD21624634A880056B269 /* NewPlayer.swift */,
 				803CD21A246496100056B269 /* Coffee.swift */,
 				803CD21C2464A1200056B269 /* PuzzleState.swift */,
+				80A7959B2469B29100B27818 /* Hole.swift */,
 			);
 			path = Playground;
 			sourceTree = "<group>";
@@ -280,7 +286,9 @@
 				80DFBD7B245231B2000D52AA /* Enemy.swift in Sources */,
 				80AC16B62450C01B002D1AC3 /* TouchBarView.swift in Sources */,
 				80DFBD7624520DF1000D52AA /* KeyIdentifiers.swift in Sources */,
+				80A7959C2469B29100B27818 /* Hole.swift in Sources */,
 				80AC16A62450BA6D002D1AC3 /* MacViewController.swift in Sources */,
+				80A7959E2469BB4A00B27818 /* Column.swift in Sources */,
 				80AC16B92450D364002D1AC3 /* GameScene.swift in Sources */,
 				80D254DA24634103003D5251 /* PixelNode.swift in Sources */,
 				80D254D924634103003D5251 /* MultiplierFactor.swift in Sources */,

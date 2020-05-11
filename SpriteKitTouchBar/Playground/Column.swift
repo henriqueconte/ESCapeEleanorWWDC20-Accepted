@@ -1,5 +1,5 @@
 //
-//  Coffee.swift
+//  Column.swift
 //  SpriteKitTouchBar
 //
 //  Created by Henrique Figueiredo Conte on 07/05/20.
@@ -10,15 +10,14 @@ import Foundation
 import SpriteKit
 
 
-class Coffee: SKSpriteNode {
+class Column: SKSpriteNode {
     
     override init(texture: SKTexture!, color: NSColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
-        self.name = "coffee"
+        self.name = "column"
         self.lightingBitMask = BitmaskConstants.affectedByLight
         
         setDefaultPhysicsBody()
-        setBounce()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +40,6 @@ class Coffee: SKSpriteNode {
         self.run(fadeOut) {
             explosion.removeFromParent()
             self.removeFromParent()
-//            completion()
         }
     }
     
@@ -67,14 +65,5 @@ class Coffee: SKSpriteNode {
         
         self.physicsBody = physicsBody
     }
-    
-    private func setBounce() {
-        let moveUp = SKAction.move(by: CGVector(dx: 0, dy: 2), duration: 0.2)
-        let moveDown = SKAction.move(by: CGVector(dx: 0, dy: -2), duration: 0.1)
-        let gap = SKAction.wait(forDuration: 1.7)
-        let loopAction = SKAction.sequence([moveUp, moveDown, gap])
-        
-        self.run(SKAction.repeatForever(loopAction))
-    }
-    
+
 }
