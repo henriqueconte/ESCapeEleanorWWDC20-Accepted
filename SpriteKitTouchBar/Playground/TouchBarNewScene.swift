@@ -18,12 +18,14 @@ class TouchBarNewScene: SKScene {
     var instructions: SKLabelNode?
     var hole: Hole?
     var column: Column?
+    var invisibleNode: Column?
     
     let viewWidth: CGFloat = 690
     let viewHeight: CGFloat = 30
     let groundPosition: CGFloat = 18
     
     var puzzleState: PuzzleState = .none
+    var updateTime: Double = 0.0
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -34,6 +36,20 @@ class TouchBarNewScene: SKScene {
         setCoffe()
         setHole()
         setColumn()
+        setInvisibleNode()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+
+        if playerNode?.canAttack ?? false {
+            let randomTime = Double.random(in: 2..<4)
+            
+            if currentTime - updateTime > randomTime {
+                updateTime = currentTime
+                spawnEnemie()
+            }
+        }
+
     }
     
     private func setBackground() {
@@ -77,6 +93,15 @@ class TouchBarNewScene: SKScene {
         addChild(column!)
     }
     
+    private func setInvisibleNode() {
+        invisibleNode = Column(texture: SKTexture(imageNamed: "column"), color: .clear, size: CGSize(width: 9, height: 25))
+        invisibleNode?.alpha = 0
+        invisibleNode?.position = CGPoint(x: viewWidth * 0.85, y: groundPosition)
+        invisibleNode?.name = "invisibleNode"
+        
+        addChild(invisibleNode!)
+    }
+    
     private func startMonstersState() {
         
         let fadeIn = SKAction.fadeIn(withDuration: 1)
@@ -84,6 +109,26 @@ class TouchBarNewScene: SKScene {
         instructions?.text = "Look! An exit has just appeared!"
         instructions?.run(fadeIn)
         hole?.appear()
+        puzzleState = .monsters
+    }
+    
+    private func showAttackTutorial() {
+        let fadeIn = SKAction.fadeIn(withDuration: 1)
+        let fadeOut = SKAction.fadeOut(withDuration: 1)
+        
+        instructions?.run(fadeOut, completion: {
+            self.instructions?.text = "Monsters want to stop you! Press space to attack them!"
+            self.instructions?.position = CGPoint(x: self.viewWidth * 0.45, y: self.viewHeight * 0.4)
+            self.instructions?.run(fadeIn)
+            self.playerNode?.canAttack = true
+        })
+    }
+    
+    private func spawnEnemie() {
+        
+        let enemy = NewEnemy(color: .clear, size: CGSize(width: 12, height: 12))
+        
+        addChild(enemy)
     }
     
     func setKeyboardEvents() {
@@ -102,7 +147,7 @@ class TouchBarNewScene: SKScene {
                     let fadeOut = SKAction.fadeOut(withDuration: 1)
                     
                     self.coffee?.disappear()
-                    
+        
                     self.playerNode?.animateLightNodes {
                         self.playerNode?.canMove = true
                     }
@@ -111,6 +156,17 @@ class TouchBarNewScene: SKScene {
                         self.startMonstersState()
                     }
                    
+                }
+                
+            case KeyIdentifiers.space.rawValue:
+                if self.playerNode?.canAttack ?? false {
+                    self.playerNode?.shoot()
+                    
+                    if self.instructions?.alpha == 1 {
+                        let fadeOut = SKAction.fadeOut(withDuration: 1.0)
+                        self.instructions?.run(fadeOut)
+                        self.playerNode?.canMove = true
+                    }
                 }
                 
             default:
@@ -141,6 +197,14 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             
             playerNode?.canMove = false
             puzzleState = .coffee
+        }
+        
+        if (bodyA.node?.name == "player" || bodyA.node?.name == "invisibleNode") && (bodyB.node?.name == "player" || bodyB.node?.name == "invisibleNode") {
+            
+            if puzzleState == .monsters {
+                playerNode?.canMove = false
+                showAttackTutorial()
+            }
         }
     }
 }

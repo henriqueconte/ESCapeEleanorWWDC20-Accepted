@@ -17,6 +17,8 @@ class NewPlayer: SKSpriteNode {
     private var rightAssetCount: Int = 1
     private var lightNodes: [SKLightNode] = []
     var canMove: Bool = true
+    var canAttack: Bool = false
+    var currentDirection: String = "right"
     
     override init(texture: SKTexture!, color: NSColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
@@ -41,6 +43,8 @@ class NewPlayer: SKSpriteNode {
             self.texture = SKTexture(imageNamed: "charRight\(rightAssetCount)")
             
             rightAssetCount += 1
+            
+            currentDirection = "right"
         }
         
     }
@@ -60,23 +64,32 @@ class NewPlayer: SKSpriteNode {
             self.texture = SKTexture(imageNamed: "charLeft\(leftAssetCount)")
             
             leftAssetCount += 1
+            
+            currentDirection = "left"
         }
         
     }
     
-    func shoot() -> SKLabelNode {
-        let shootNode = SKLabelNode(text: "💣")
-        shootNode.fontSize = 6
-        shootNode.position = CGPoint(x: self.position.x + 5, y: self.position.y)
-        shootNode.zRotation = -5.5
-        shootNode.name = "playerBomb"
+    func shoot() {
+        let shootNode = SKSpriteNode(texture: SKTexture(imageNamed: "hammer"), color: .clear, size: CGSize(width: 10, height: 10))
+        var moveAction: SKAction = SKAction()
+        shootNode.position = CGPoint(x: 0, y: 0)
+        shootNode.name = "hammer"
+        shootNode.lightingBitMask = BitmaskConstants.affectedByLight
         setDefaultPhysicsBody(from: shootNode)
         
         let spinningAction = SKAction.repeatForever(SKAction.rotate(byAngle: .pi * 2, duration: 0.5))
         
-        shootNode.run(spinningAction)
+        if currentDirection == "left" {
+            moveAction = SKAction.move(by: CGVector(dx: -700, dy: 0), duration: 2)
+        }
+        else {
+            moveAction = SKAction.move(by: CGVector(dx: 700, dy: 0), duration: 2)
+        }
         
-        return shootNode
+        shootNode.run(SKAction.group([moveAction, spinningAction]))
+        
+        addChild(shootNode)
     }
     
     private func setDefaultPhysicsBody(from node: SKNode) {
