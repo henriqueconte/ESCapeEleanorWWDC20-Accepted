@@ -95,6 +95,13 @@ class NewEnemy: SKSpriteNode {
         
     }
     
+    func disable() {
+        self.removeAllActions()
+        self.physicsBody = nil
+        self.size = CGSize(width: 50, height: 10)
+        self.zRotation = 0
+    }
+    
     func die() {
         
         let reduceLight = SKAction.customAction(withDuration: 0.005) {

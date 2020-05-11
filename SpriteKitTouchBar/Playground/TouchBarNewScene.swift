@@ -172,7 +172,7 @@ class TouchBarNewScene: SKScene {
                     self.playerNode?.shoot()
                     self.monstersAllowed = true
                     
-                    if self.instructions?.alpha == 1 {
+                    if self.instructions?.alpha ?? 0.0 > 0.0 {
                         let fadeOut = SKAction.fadeOut(withDuration: 1.0)
                         self.instructions?.run(fadeOut)
                         self.playerNode?.canMove = true
@@ -246,11 +246,30 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             
             hammer?.removeFromParent()
 
-            monster?.removeAllActions()
-            monster?.physicsBody = nil
+            monster?.disable()
             monster?.texture = SKTexture(imageNamed: "buildSucceeded")
-            monster?.size = CGSize(width: 45, height: 10)
-            monster?.zRotation = 0
+            
+            let increaseAction = SKAction.resize(byWidth: 9, height: 3, duration: 1.0)
+            
+            
+            monster?.run(increaseAction) {
+                monster?.die()
+            }
+        }
+        
+        if (bodyA.node?.name == "player" || bodyA.node?.name == "monster") && (bodyB.node?.name == "player" || bodyB.node?.name == "monster") {
+            
+            var monster: NewEnemy?
+            
+            if bodyA.node?.name == "monster" {
+                monster = bodyA.node as? NewEnemy
+            }
+            else {
+                monster = bodyB.node as? NewEnemy
+            }
+            
+            monster?.disable()
+            monster?.texture = SKTexture(imageNamed: "buildFailed")
             
             let increaseAction = SKAction.resize(byWidth: 9, height: 3, duration: 1.0)
             
@@ -258,6 +277,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
                 monster?.die()
             }
         }
+        
     }
 }
 
