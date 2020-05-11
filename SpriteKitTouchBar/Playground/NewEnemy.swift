@@ -17,7 +17,7 @@ class NewEnemy: SKSpriteNode {
     
     override init(texture: SKTexture!, color: NSColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
-        self.name = "enemy"
+        self.name = "monster"
         setDefaultPhysicsBody(from: self)
         setLightNodes()
         setInitialPosition()
@@ -96,7 +96,22 @@ class NewEnemy: SKSpriteNode {
     }
     
     func die() {
-        self.removeFromParent()
+        
+        let reduceLight = SKAction.customAction(withDuration: 0.005) {
+            (_, time) -> Void in
+            
+            for element in self.lightNodes {
+                element.falloff += 0.014
+            }
+        }
+        
+         let reduceLightSequence = SKAction.sequence([reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight])
+        
+        let resize = SKAction.resize(toWidth: 0, height: 0, duration: 0.21)
+        
+        self.run(SKAction.group([reduceLightSequence, resize])) {
+            self.removeFromParent()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

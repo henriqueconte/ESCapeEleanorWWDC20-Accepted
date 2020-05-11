@@ -51,7 +51,7 @@ class TouchBarNewScene: SKScene {
             }
         
             if playerNode?.canAttack == false {
-                if currentTime - (self.playerNode?.attackTime ?? 0.0) > 0.8 {
+                if currentTime - (self.playerNode?.attackTime ?? 0.0) > 1.0 {
                     self.playerNode?.attackTime = currentTime
                     playerNode?.canAttack = true
                 }
@@ -186,6 +186,19 @@ class TouchBarNewScene: SKScene {
         }
     }
     
+    func explode(node: SKSpriteNode, closure: @escaping () -> ()) {
+        let explosion = SKEmitterNode(fileNamed: "Explosion")!
+        addChild(explosion)
+        explosion.resetSimulation()
+        explosion.particleTexture = node.texture
+        explosion.position = CGPoint(x: node.position.x, y: node.position.y - node.size.height/2)
+        explosion.particleSize = CGSize(width: node.size.width/2, height: node.size.height/2)
+        
+        self.run(SKAction.wait(forDuration: 1.5)) {
+            explosion.removeFromParent()
+            closure()
+        }
+    }
 }
 
 extension TouchBarNewScene: SKPhysicsContactDelegate {
@@ -214,6 +227,35 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             if instructions?.text == "Look! An exit has just appeared!" {
                 playerNode?.canMove = false
                 showAttackTutorial()
+            }
+        }
+        
+        if (bodyA.node?.name == "hammer" || bodyA.node?.name == "monster") && (bodyB.node?.name == "hammer" || bodyB.node?.name == "monster") {
+            
+            var hammer: SKSpriteNode?
+            var monster: NewEnemy?
+            
+            if bodyA.node?.name == "hammer" {
+                hammer = bodyA.node as? SKSpriteNode
+                monster = bodyB.node as? NewEnemy
+            }
+            else {
+                hammer = bodyB.node as? SKSpriteNode
+                monster = bodyA.node as? NewEnemy
+            }
+            
+            hammer?.removeFromParent()
+
+            monster?.removeAllActions()
+            monster?.physicsBody = nil
+            monster?.texture = SKTexture(imageNamed: "buildSucceeded")
+            monster?.size = CGSize(width: 45, height: 10)
+            monster?.zRotation = 0
+            
+            let increaseAction = SKAction.resize(byWidth: 9, height: 3, duration: 1.0)
+            
+            monster?.run(increaseAction) {
+                monster?.die()
             }
         }
     }
