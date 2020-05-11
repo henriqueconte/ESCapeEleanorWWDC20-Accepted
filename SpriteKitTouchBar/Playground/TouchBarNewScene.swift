@@ -26,6 +26,7 @@ class TouchBarNewScene: SKScene {
     
     var puzzleState: PuzzleState = .none
     var updateTime: Double = 0.0
+    var monstersAllowed: Bool = false
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -41,12 +42,19 @@ class TouchBarNewScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
 
-        if playerNode?.canAttack ?? false {
+        if puzzleState == .monsters && monstersAllowed {
             let randomTime = Double.random(in: 2..<4)
             
             if currentTime - updateTime > randomTime {
                 updateTime = currentTime
                 spawnEnemie()
+            }
+        
+            if playerNode?.canAttack == false {
+                if currentTime - (self.playerNode?.attackTime ?? 0.0) > 0.8 {
+                    self.playerNode?.attackTime = currentTime
+                    playerNode?.canAttack = true
+                }
             }
         }
 
@@ -102,19 +110,20 @@ class TouchBarNewScene: SKScene {
         addChild(invisibleNode!)
     }
     
-    private func startMonstersState() {
+    private func showExit() {
         
         let fadeIn = SKAction.fadeIn(withDuration: 1)
         
         instructions?.text = "Look! An exit has just appeared!"
         instructions?.run(fadeIn)
         hole?.appear()
-        puzzleState = .monsters
     }
     
     private func showAttackTutorial() {
         let fadeIn = SKAction.fadeIn(withDuration: 1)
         let fadeOut = SKAction.fadeOut(withDuration: 1)
+        
+        puzzleState = .monsters
         
         instructions?.run(fadeOut, completion: {
             self.instructions?.text = "Monsters want to stop you! Press space to attack them!"
@@ -153,7 +162,7 @@ class TouchBarNewScene: SKScene {
                     }
                     
                     self.instructions?.run(fadeOut) {
-                        self.startMonstersState()
+                        self.showExit()
                     }
                    
                 }
@@ -161,6 +170,7 @@ class TouchBarNewScene: SKScene {
             case KeyIdentifiers.space.rawValue:
                 if self.playerNode?.canAttack ?? false {
                     self.playerNode?.shoot()
+                    self.monstersAllowed = true
                     
                     if self.instructions?.alpha == 1 {
                         let fadeOut = SKAction.fadeOut(withDuration: 1.0)
@@ -201,7 +211,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
         
         if (bodyA.node?.name == "player" || bodyA.node?.name == "invisibleNode") && (bodyB.node?.name == "player" || bodyB.node?.name == "invisibleNode") {
             
-            if puzzleState == .monsters {
+            if instructions?.text == "Look! An exit has just appeared!" {
                 playerNode?.canMove = false
                 showAttackTutorial()
             }

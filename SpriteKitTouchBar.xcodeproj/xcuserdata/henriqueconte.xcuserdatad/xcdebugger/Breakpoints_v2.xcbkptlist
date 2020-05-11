@@ -78,8 +78,8 @@
             filePath = "SpriteKitTouchBar/Playground/TouchBarNewScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>

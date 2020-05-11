@@ -19,6 +19,7 @@ class NewPlayer: SKSpriteNode {
     var canMove: Bool = true
     var canAttack: Bool = false
     var currentDirection: String = "right"
+    var attackTime: Double = 0.0
     
     override init(texture: SKTexture!, color: NSColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
@@ -80,16 +81,33 @@ class NewPlayer: SKSpriteNode {
         
         let spinningAction = SKAction.repeatForever(SKAction.rotate(byAngle: .pi * 2, duration: 0.5))
         
+        let lightNode = SKLightNode()
+
+        lightNode.position = shootNode.position
+        lightNode.ambientColor = .clear
+        lightNode.lightColor = .white
+        lightNode.falloff = 0.8
+        lightNode.zPosition = 1
+        lightNode.physicsBody?.categoryBitMask = BitmaskConstants.affectedByLight
+        
+        shootNode.addChild(lightNode)
+        
         if currentDirection == "left" {
             moveAction = SKAction.move(by: CGVector(dx: -700, dy: 0), duration: 2)
+            
         }
         else {
             moveAction = SKAction.move(by: CGVector(dx: 700, dy: 0), duration: 2)
         }
         
-        shootNode.run(SKAction.group([moveAction, spinningAction]))
+        shootNode.run(spinningAction)
+        shootNode.run(moveAction) {
+            shootNode.removeFromParent()
+        }
         
         addChild(shootNode)
+        
+        canAttack = false
     }
     
     private func setDefaultPhysicsBody(from node: SKNode) {

@@ -84,7 +84,7 @@ class NewEnemy: SKSpriteNode {
         lightNode.position = self.position
         lightNode.ambientColor = .clear
         lightNode.lightColor = .white
-        lightNode.falloff = 0.6
+        lightNode.falloff = 0.8
         lightNode.zPosition = 1
         lightNode.physicsBody?.categoryBitMask = BitmaskConstants.affectedByLight
         
