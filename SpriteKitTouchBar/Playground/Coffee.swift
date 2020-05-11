@@ -28,18 +28,18 @@ class Coffee: SKSpriteNode {
     func disappear() {
         self.removeAllActions()
         
-        let explosion = SKEmitterNode(fileNamed: "Explosion")!
-        addChild(explosion)
-        explosion.resetSimulation()
-        explosion.particleTexture = SKTexture(imageNamed: "Bloob")
-        explosion.position = CGPoint(x: self.position.x, y: self.position.y)
-        explosion.particleSize = CGSize(width: 15, height: 15)
-        explosion.speed = 0.5
+//        let explosion = SKEmitterNode(fileNamed: "Explosion")!
+//        addChild(explosion)
+//        explosion.resetSimulation()
+//        explosion.particleTexture = SKTexture(imageNamed: "Bloob")
+//        explosion.position = CGPoint(x: self.position.x, y: self.position.y)
+//        explosion.particleSize = CGSize(width: 15, height: 15)
+//        explosion.speed = 0.5
         
         let fadeOut = SKAction.fadeOut(withDuration: 1.0)
 
         self.run(fadeOut) {
-            explosion.removeFromParent()
+        //    explosion.removeFromParent()
             self.removeFromParent()
 //            completion()
         }
