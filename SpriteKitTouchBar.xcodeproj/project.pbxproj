@@ -32,6 +32,7 @@
 		80D254DE24634103003D5251 /* TouchBarIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D254D624634103003D5251 /* TouchBarIdentifiers.swift */; };
 		80D254DF24634103003D5251 /* TouchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D254D724634103003D5251 /* TouchBarViewController.swift */; };
 		80D254E124634145003D5251 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D254E024634145003D5251 /* Direction.swift */; };
+		80DAF2FF246B149F005BFDC2 /* WordGuess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DAF2FE246B149F005BFDC2 /* WordGuess.swift */; };
 		80DFBD732451FE0B000D52AA /* Game.sks in Resources */ = {isa = PBXBuildFile; fileRef = 80DFBD722451FE0B000D52AA /* Game.sks */; };
 		80DFBD7624520DF1000D52AA /* KeyIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DFBD7524520DF1000D52AA /* KeyIdentifiers.swift */; };
 		80DFBD7824521237000D52AA /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DFBD7724521237000D52AA /* Player.swift */; };
@@ -68,6 +69,7 @@
 		80D254D624634103003D5251 /* TouchBarIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchBarIdentifiers.swift; sourceTree = "<group>"; };
 		80D254D724634103003D5251 /* TouchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchBarViewController.swift; sourceTree = "<group>"; };
 		80D254E024634145003D5251 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		80DAF2FE246B149F005BFDC2 /* WordGuess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordGuess.swift; sourceTree = "<group>"; };
 		80DFBD722451FE0B000D52AA /* Game.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Game.sks; sourceTree = "<group>"; };
 		80DFBD7524520DF1000D52AA /* KeyIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyIdentifiers.swift; sourceTree = "<group>"; };
 		80DFBD7724521237000D52AA /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				803CD21A246496100056B269 /* Coffee.swift */,
 				803CD21C2464A1200056B269 /* PuzzleState.swift */,
 				80A7959B2469B29100B27818 /* Hole.swift */,
+				80DAF2FE246B149F005BFDC2 /* WordGuess.swift */,
 			);
 			path = Playground;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				80AC16B62450C01B002D1AC3 /* TouchBarView.swift in Sources */,
 				80DFBD7624520DF1000D52AA /* KeyIdentifiers.swift in Sources */,
 				80A7959C2469B29100B27818 /* Hole.swift in Sources */,
+				80DAF2FF246B149F005BFDC2 /* WordGuess.swift in Sources */,
 				80AC16A62450BA6D002D1AC3 /* MacViewController.swift in Sources */,
 				80A7959E2469BB4A00B27818 /* Column.swift in Sources */,
 				80AC16B92450D364002D1AC3 /* GameScene.swift in Sources */,

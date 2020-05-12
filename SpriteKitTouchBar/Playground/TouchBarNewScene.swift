@@ -19,6 +19,7 @@ class TouchBarNewScene: SKScene {
     var hole: Hole?
     var column: Column?
     var invisibleNode: Column?
+    var wordGuesser: WordGuess?
     
     let viewWidth: CGFloat = 690
     let viewHeight: CGFloat = 30
@@ -38,6 +39,7 @@ class TouchBarNewScene: SKScene {
         setHole()
         setColumn()
         setInvisibleNode()
+        setWordGuesser()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -97,6 +99,7 @@ class TouchBarNewScene: SKScene {
     private func setColumn() {
         column = Column(texture: SKTexture(imageNamed: "column"), color: .clear, size: CGSize(width: 9, height: 25))
         column?.position = CGPoint(x: viewWidth * 0.12, y: groundPosition + 2)
+        column?.isHidden = true
         
         addChild(column!)
     }
@@ -110,12 +113,21 @@ class TouchBarNewScene: SKScene {
         addChild(invisibleNode!)
     }
     
+    private func setWordGuesser() {
+        wordGuesser = WordGuess()
+        wordGuesser?.position = CGPoint(x: viewWidth * 0.74, y: viewHeight * 0.4)
+        wordGuesser?.alpha = 0
+        
+        addChild(wordGuesser!)
+    }
+    
     private func showExit() {
         
         let fadeIn = SKAction.fadeIn(withDuration: 1)
         
         instructions?.text = "Look! An exit has just appeared!"
         instructions?.run(fadeIn)
+        column?.isHidden = false
         hole?.appear()
     }
     
@@ -129,8 +141,19 @@ class TouchBarNewScene: SKScene {
             self.instructions?.text = "Monsters want to stop you! Press space to attack them!"
             self.instructions?.position = CGPoint(x: self.viewWidth * 0.45, y: self.viewHeight * 0.4)
             self.instructions?.run(fadeIn)
+            self.invisibleNode?.position.x = self.viewWidth * 0.15
             self.playerNode?.canAttack = true
         })
+    }
+    
+    private func showEscapeInstructions() {
+        let fadeIn = SKAction.fadeIn(withDuration: 1)
+        
+        puzzleState = .wall
+        playerNode?.canAttack = false
+        instructions?.text = "Guess Eleanor's favorite programming language:"
+        instructions?.run(fadeIn)
+        wordGuesser?.run(fadeIn)
     }
     
     private func spawnEnemie() {
@@ -143,7 +166,7 @@ class TouchBarNewScene: SKScene {
     func setKeyboardEvents() {
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event) -> NSEvent? in
-
+    
             switch event.keyCode {
             case KeyIdentifiers.leftArrow.rawValue:
                 self.playerNode?.moveLeft()
@@ -227,6 +250,11 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             if instructions?.text == "Look! An exit has just appeared!" {
                 playerNode?.canMove = false
                 showAttackTutorial()
+            }
+            
+            else if instructions?.text == "Monsters want to stop you! Press space to attack them!" {
+                playerNode?.canMove = false
+                showEscapeInstructions()
             }
         }
         
