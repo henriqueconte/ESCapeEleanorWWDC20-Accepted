@@ -37,16 +37,39 @@ class WordGuess: SKSpriteNode {
             newLetterSlot.fontName = "Arial Rounded MT Bold"
             newLetterSlot.zPosition = 1
             newLetterSlot.position = CGPoint(x: separator + (25 * i), y: 0)
-            newLetterSlot.text = "A"
+            newLetterSlot.text = ""
             letterSlots.append(newLetterSlot)
             separator += 3
             
             let underLineBar = SKSpriteNode(color: .lightGray, size: CGSize(width: 25, height: 2))
-            underLineBar.position = CGPoint(x: 0, y: 0)
+            underLineBar.position = CGPoint(x: 0, y: -3)
         
             newLetterSlot.addChild(underLineBar)
             addChild(newLetterSlot)
+        }
+        
+    }
+    
+    func readLetter(letter: String) {
+        
+        // \u{7F} means delete key
+        if letter == "\u{7F}" {
+        
+            for element in letterSlots.reversed() {
+                if element.text != "" {
+                    element.text = ""
+                    break
+                }
+            }
             
+        }
+        else {
+            for element in letterSlots {
+                if element.text == "" {
+                    element.text = letter
+                    break
+                }
+            }
         }
     }
     

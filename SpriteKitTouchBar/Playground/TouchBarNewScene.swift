@@ -151,6 +151,8 @@ class TouchBarNewScene: SKScene {
         
         puzzleState = .wall
         playerNode?.canAttack = false
+        monstersAllowed = false
+        
         instructions?.text = "Guess Eleanor's favorite programming language:"
         instructions?.run(fadeIn)
         wordGuesser?.run(fadeIn)
@@ -203,6 +205,11 @@ class TouchBarNewScene: SKScene {
                 }
                 
             default:
+                
+                if self.puzzleState == .wall {
+                    self.wordGuesser?.readLetter(letter: event.characters ?? "c")
+                }
+               
                 return event
             }
             return event
