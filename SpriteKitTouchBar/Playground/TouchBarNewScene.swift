@@ -165,6 +165,17 @@ class TouchBarNewScene: SKScene {
         addChild(enemy)
     }
     
+    private func endWordPuzzle() {
+        let fadeOut = SKAction.fadeOut(withDuration: 3)
+        
+        wordGuesser?.run(fadeOut)
+        instructions?.run(fadeOut) {
+            self.column?.disappear() {
+                self.playerNode?.canMove = true
+            }
+        }
+    }
+    
     func setKeyboardEvents() {
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event) -> NSEvent? in
@@ -207,7 +218,11 @@ class TouchBarNewScene: SKScene {
             default:
                 
                 if self.puzzleState == .wall {
-                    self.wordGuesser?.readLetter(letter: event.characters ?? "c")
+                    let shouldEndReading = self.wordGuesser?.readLetter(letter: event.characters ?? "c")
+                    
+                    if shouldEndReading ?? false {
+                        self.endWordPuzzle()
+                    }
                 }
                
                 return event

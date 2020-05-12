@@ -12,8 +12,14 @@ import SpriteKit
 
 class WordGuess: SKSpriteNode {
     
-    var currentWord: String = ""
     var letterSlots: [SKLabelNode] = []
+    var currentWord: String {
+        var word: String = ""
+        for element in letterSlots {
+            word.append(element.text ?? "")
+        }
+        return word
+    }
     
     override init(texture: SKTexture!, color: NSColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
@@ -50,7 +56,7 @@ class WordGuess: SKSpriteNode {
         
     }
     
-    func readLetter(letter: String) {
+    func readLetter(letter: String) -> Bool {
         
         // \u{7F} means delete key
         if letter == "\u{7F}" {
@@ -64,14 +70,51 @@ class WordGuess: SKSpriteNode {
             
         }
         else {
+            
             for element in letterSlots {
                 if element.text == "" {
                     element.text = letter
-                    break
+                    if element == letterSlots.last {
+                        if currentWord.lowercased() == "swift" {
+                            correctWord()
+                            
+                            return true
+                        }
+                        else {
+                            wrongWord()
+                        }
+                    }
+                    else {
+                        break
+                    }
                 }
+            }
+            
+        }
+        
+        return false
+    }
+    
+    func correctWord() {
+        let colorToBlue = SKAction.colorize(with: NSColor(red: 60/255, green: 153/255, blue: 252/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)
+        let colorToWhite = SKAction.colorize(with: NSColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)
+        
+        for element in letterSlots {
+            element.run(SKAction.sequence([colorToBlue, colorToWhite, colorToBlue, colorToWhite])) {
+                
             }
         }
     }
     
+    func wrongWord() {
+        let colorToRed = SKAction.colorize(with: NSColor(red: 226/255, green: 21/255, blue: 21/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)
+        let colorToWhite = SKAction.colorize(with: NSColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)
+        
+        for element in letterSlots {
+            element.run(SKAction.sequence([colorToRed, colorToWhite])) {
+                element.text = ""
+            }
+        }
+    }
     
 }

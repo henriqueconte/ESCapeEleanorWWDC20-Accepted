@@ -24,35 +24,19 @@ class Column: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func disappear() {
-        self.removeAllActions()
+    func disappear(completion: @escaping () -> ()) {
+        let moveLeft = SKAction.move(by: CGVector(dx: -1, dy: 0), duration: 0.03)
+        let moveRight = SKAction.move(by: CGVector(dx: 1, dy: 0), duration: 0.03)
+        let moveUp = SKAction.move(by: CGVector(dx: 0, dy: 30), duration: 4)
+        let trembleLoop = SKAction.repeatForever(SKAction.sequence([moveLeft, moveRight]))
         
-        let explosion = SKEmitterNode(fileNamed: "Explosion")!
-        addChild(explosion)
-        explosion.resetSimulation()
-        explosion.particleTexture = SKTexture(imageNamed: "Bloob")
-        explosion.position = CGPoint(x: self.position.x, y: self.position.y)
-        explosion.particleSize = CGSize(width: 15, height: 15)
-        explosion.speed = 0.5
-        
-        let fadeOut = SKAction.fadeOut(withDuration: 1.0)
-
-        self.run(fadeOut) {
-            explosion.removeFromParent()
+        self.run(trembleLoop)
+        self.run(moveUp) {
+            completion()
             self.removeFromParent()
         }
     }
     
-    func createInstructions() -> SKLabelNode {
-        let instruction = SKLabelNode(text: "Press enter to take the coffee")
-        instruction.fontSize = 15
-        instruction.fontName = "Arial Rounded MT Bold"
-        instruction.fontColor = .white
-        instruction.zPosition = 1
-        instruction.alpha = 0
-        
-        return instruction
-    }
     
     private func setDefaultPhysicsBody() {
         let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width * 0.5,
