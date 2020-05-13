@@ -10,10 +10,10 @@
 		80175164245328EA00D8C85E /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80175163245328EA00D8C85E /* StartScene.swift */; };
 		8017516924533CBA00D8C85E /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8017516824533CBA00D8C85E /* StartScene.sks */; };
 		803CD2152463449D0056B269 /* TouchBarNewScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD2142463449D0056B269 /* TouchBarNewScene.swift */; };
-		803CD21724634A880056B269 /* NewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21624634A880056B269 /* NewPlayer.swift */; };
 		803CD21924648CA00056B269 /* BitmaskConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21824648CA00056B269 /* BitmaskConstants.swift */; };
 		803CD21B246496100056B269 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21A246496100056B269 /* Coffee.swift */; };
 		803CD21D2464A1200056B269 /* PuzzleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21C2464A1200056B269 /* PuzzleState.swift */; };
+		806C8226246C7AEC0094F74C /* NewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C8225246C7AEC0094F74C /* NewPlayer.swift */; };
 		80A7959C2469B29100B27818 /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959B2469B29100B27818 /* Hole.swift */; };
 		80A7959E2469BB4A00B27818 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959D2469BB4A00B27818 /* Column.swift */; };
 		80A795A02469D5F900B27818 /* NewEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959F2469D5F900B27818 /* NewEnemy.swift */; };
@@ -44,10 +44,10 @@
 		80175163245328EA00D8C85E /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		8017516824533CBA00D8C85E /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		803CD2142463449D0056B269 /* TouchBarNewScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarNewScene.swift; sourceTree = "<group>"; };
-		803CD21624634A880056B269 /* NewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayer.swift; sourceTree = "<group>"; };
 		803CD21824648CA00056B269 /* BitmaskConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmaskConstants.swift; sourceTree = "<group>"; };
 		803CD21A246496100056B269 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		803CD21C2464A1200056B269 /* PuzzleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleState.swift; sourceTree = "<group>"; };
+		806C8225246C7AEC0094F74C /* NewPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPlayer.swift; path = SpriteKitTouchBar/Playground/NewPlayer.swift; sourceTree = SOURCE_ROOT; };
 		80A7959B2469B29100B27818 /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
 		80A7959D2469BB4A00B27818 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		80A7959F2469D5F900B27818 /* NewEnemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEnemy.swift; sourceTree = "<group>"; };
@@ -172,9 +172,9 @@
 			children = (
 				80D254CE24634103003D5251 /* TouchBar */,
 				803CD2142463449D0056B269 /* TouchBarNewScene.swift */,
+				806C8225246C7AEC0094F74C /* NewPlayer.swift */,
 				80A7959F2469D5F900B27818 /* NewEnemy.swift */,
 				80A7959D2469BB4A00B27818 /* Column.swift */,
-				803CD21624634A880056B269 /* NewPlayer.swift */,
 				803CD21A246496100056B269 /* Coffee.swift */,
 				803CD21C2464A1200056B269 /* PuzzleState.swift */,
 				80A7959B2469B29100B27818 /* Hole.swift */,
@@ -298,11 +298,11 @@
 				80AC16A62450BA6D002D1AC3 /* MacViewController.swift in Sources */,
 				80A7959E2469BB4A00B27818 /* Column.swift in Sources */,
 				80AC16B92450D364002D1AC3 /* GameScene.swift in Sources */,
+				806C8226246C7AEC0094F74C /* NewPlayer.swift in Sources */,
 				80D254DA24634103003D5251 /* PixelNode.swift in Sources */,
 				80D254D924634103003D5251 /* MultiplierFactor.swift in Sources */,
 				803CD2152463449D0056B269 /* TouchBarNewScene.swift in Sources */,
 				80D254E124634145003D5251 /* Direction.swift in Sources */,
-				803CD21724634A880056B269 /* NewPlayer.swift in Sources */,
 				80D254DE24634103003D5251 /* TouchBarIdentifiers.swift in Sources */,
 				80DFBD7824521237000D52AA /* Player.swift in Sources */,
 				80D254DD24634103003D5251 /* TouchBarScene.swift in Sources */,
