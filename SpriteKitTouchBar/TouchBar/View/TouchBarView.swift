@@ -21,9 +21,18 @@ class TouchBarView: NSViewController {
         return view
     }()
     
+    private lazy var newView: NSView = {
+        let view = NSView(frame: self.view.bounds)
+        view.autoresizingMask = [.width, .height]
+        view.layer?.backgroundColor = NSColor.blue.cgColor
+        
+        return view
+    }()
+    
     override func loadView() {
         view = NSView()
-        view.addSubview(gameView)
+//        view.addSubview(gameView)
+        //view.addSubview(newView)
     }
     
     override func viewDidAppear() {
