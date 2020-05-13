@@ -178,6 +178,29 @@ class NewPlayer: SKSpriteNode {
         
     }
     
+    func disappear(_ completion: @escaping () -> ()) {
+        
+        let wait = SKAction.wait(forDuration: 1)
+        let moveOut = SKAction.move(by: CGVector(dx: 0, dy: -30), duration: 4)
+        
+        
+        let reduceLight = SKAction.customAction(withDuration: 0.01) {
+            (_, time) -> Void in
+            
+            for element in self.lightNodes {
+                element.falloff += 0.014
+            }
+        }
+        
+        let reduceLightSequence = SKAction.sequence([reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight])
+        
+        let sequence = SKAction.sequence([wait, moveOut, reduceLightSequence, reduceLightSequence])
+        
+        self.run(sequence) {
+            completion()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -29,21 +29,34 @@ class Hole: SKSpriteNode {
     }
     
     func disappear() {
-        self.removeAllActions()
         
-        let explosion = SKEmitterNode(fileNamed: "Explosion")!
-        addChild(explosion)
-        explosion.resetSimulation()
-        explosion.particleTexture = SKTexture(imageNamed: "Bloob")
-        explosion.position = CGPoint(x: self.position.x, y: self.position.y)
-        explosion.particleSize = CGSize(width: 15, height: 15)
-        explosion.speed = 0.5
+        let increaseLight = SKAction.customAction(withDuration: 0.02) {
+            (_, time) -> Void in
+            
+            for element in self.lightNodes {
+                element.falloff -= 0.05
+            }
+        }
         
-        let fadeOut = SKAction.fadeOut(withDuration: 1.0)
-
-        self.run(fadeOut) {
-            explosion.removeFromParent()
-            self.removeFromParent()
+        let reduceLight = SKAction.customAction(withDuration: 0.005) {
+            (_, time) -> Void in
+            
+            for element in self.lightNodes {
+                element.falloff += 0.16
+            }
+        }
+        
+        let increaseLightSequence = SKAction.sequence([increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight
+            ,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight
+            ,increaseLight,increaseLight])
+        
+        let reduceLightSequence = SKAction.sequence([reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight])
+        
+        let wait = SKAction.wait(forDuration: 1)
+        
+        
+        self.run(SKAction.sequence([wait, reduceLightSequence])) {
+            self.isHidden = true
         }
     }
     
@@ -77,8 +90,8 @@ class Hole: SKSpriteNode {
     }
     
     private func setDefaultPhysicsBody() {
-        let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width * 0.5,
-                                                            height: self.frame.height * 0.5)
+        let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width * 0.05,
+                                                            height: self.frame.height * 0.3)
         )
         physicsBody.affectedByGravity = false
         physicsBody.isDynamic = true

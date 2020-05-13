@@ -90,7 +90,7 @@ class TouchBarNewScene: SKScene {
     }
     
     private func setHole() {
-        hole = Hole(texture: SKTexture(imageNamed: "hole"), color: .clear, size: CGSize(width: 35, height: 19))
+        hole = Hole(texture: SKTexture(imageNamed: "hole"), color: .clear, size: CGSize(width: 35, height: 22))
         hole?.position = CGPoint(x: viewWidth * 0.05, y: groundPosition - 7)
         
         addChild(hole!)
@@ -172,6 +172,7 @@ class TouchBarNewScene: SKScene {
         instructions?.run(fadeOut) {
             self.column?.disappear() {
                 self.playerNode?.canMove = true
+                self.puzzleState = .macbook
             }
         }
     }
@@ -325,6 +326,16 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             
             monster?.run(increaseAction) {
                 monster?.die()
+            }
+        }
+        
+        if (bodyA.node?.name == "player" || bodyA.node?.name == "hole") && (bodyB.node?.name == "player" || bodyB.node?.name == "hole") {
+            
+            if puzzleState == .macbook {
+                playerNode?.canMove = false
+                playerNode?.disappear({
+                    self.hole?.disappear()
+                })
             }
         }
         
