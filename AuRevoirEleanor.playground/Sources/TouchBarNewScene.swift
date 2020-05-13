@@ -40,7 +40,6 @@ public class TouchBarNewScene: SKScene {
         setColumn()
         setInvisibleNode()
         setWordGuesser()
-        print("entereeddd")
     }
     
     override public func update(_ currentTime: TimeInterval) {
@@ -64,12 +63,9 @@ public class TouchBarNewScene: SKScene {
     }
     
     private func setBackground() {
-        backgroundNode = SKSpriteNode(texture: SKTexture(imageNamed: "caveBackground"), size: CGSize(width: self.view?.bounds.width ?? 0, height: self.view?.bounds.height ?? 0))
-        backgroundNode?.zPosition = 0
-        backgroundNode?.anchorPoint = CGPoint(x: 0, y: 0)
-        backgroundNode?.lightingBitMask = BitmaskConstants.affectedByLight
-        
-        addChild(backgroundNode!)
+        if let background = self.childNode(withName: "background") as? SKSpriteNode {
+            background.lightingBitMask = BitmaskConstants.affectedByLight
+        }
     }
     
     private func setPhysicsWorld() {

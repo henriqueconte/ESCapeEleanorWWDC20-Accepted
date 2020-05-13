@@ -43,7 +43,6 @@ public class TouchBarViewController: NSViewController{
 
             scene = TouchBarNewScene(fileNamed: "StartScene")!
             //scene?.macScene = macScene
-            print(scene)
             skView.presentScene(scene)
         }
     }

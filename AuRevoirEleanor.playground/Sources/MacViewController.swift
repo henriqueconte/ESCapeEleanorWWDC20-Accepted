@@ -29,7 +29,6 @@ open class MacViewController: NSViewController{
     }
     
     override public func viewDidAppear() {
-        print("mac view did appear")
         if skView.scene == nil {
             scene = MacScene(size: skView.frame.size)
             skView.presentScene(scene)
