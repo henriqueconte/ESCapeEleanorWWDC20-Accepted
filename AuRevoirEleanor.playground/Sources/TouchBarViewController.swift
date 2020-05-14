@@ -49,7 +49,7 @@ public class TouchBarViewController: NSViewController{
 
 extension TouchBarViewController: SlideToUnlock {
     func didFinishSliding() {
-    
+        scene?.macScene?.unlockBackground()
     }
 }
 

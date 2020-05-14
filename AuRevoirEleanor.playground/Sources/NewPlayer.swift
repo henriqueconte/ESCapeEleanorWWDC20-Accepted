@@ -32,7 +32,7 @@ public class NewPlayer: SKSpriteNode {
         
         if canMove {
             if self.position.x < 676 {
-                setNewPosition(newPoint: CGPoint(x: self.position.x + 7, y: self.position.y), duration: 0.1)
+                setNewPosition(newPoint: CGPoint(x: self.position.x + 7, y: self.position.y), duration: 0.1, completion: {})
             }
             
             leftAssetCount = 1
@@ -54,7 +54,7 @@ public class NewPlayer: SKSpriteNode {
         
         if canMove {
             if self.position.x > 7 {
-                setNewPosition(newPoint: CGPoint(x: self.position.x - 7, y: self.position.y), duration: 0.1)
+                setNewPosition(newPoint: CGPoint(x: self.position.x - 7, y: self.position.y), duration: 0.1, completion: {})
             }
             
             rightAssetCount = 1
@@ -122,9 +122,11 @@ public class NewPlayer: SKSpriteNode {
         node.physicsBody = physicsBody
     }
     
-    private func setNewPosition(newPoint: CGPoint, duration: TimeInterval) {
+    private func setNewPosition(newPoint: CGPoint, duration: TimeInterval, completion: @escaping () -> ()) {
         let moveAction = SKAction.move(to: newPoint, duration: duration)
-        self.run(moveAction)
+        self.run(moveAction) {
+            completion()
+        }
     }
     
     private func setLightNodes() {
@@ -198,6 +200,26 @@ public class NewPlayer: SKSpriteNode {
         
         self.run(sequence) {
             completion()
+        }
+    }
+    
+    func appearOnMacBook(completion: @escaping () -> ()) {
+        let moveUp = SKAction.move(by: CGVector(dx: 0, dy: 25), duration: 3.0)
+        
+        self.alpha = 1.0
+        self.run(moveUp) {
+            self.moveLeft()
+            self.setNewPosition(newPoint: CGPoint(x: self.position.x - 7, y: self.position.y), duration: 0.4, completion: {
+                self.moveLeft()
+                self.setNewPosition(newPoint: CGPoint(x: self.position.x - 14, y: self.position.y), duration: 0.4, completion: {
+                    self.moveLeft()
+                    self.setNewPosition(newPoint: CGPoint(x: self.position.x - 21, y: self.position.y), duration: 0.4, completion: {
+                        self.moveLeft()
+
+                        completion()
+                    })
+                })
+            })
         }
     }
     

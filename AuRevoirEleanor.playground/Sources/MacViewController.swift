@@ -83,6 +83,7 @@ extension MacViewController: NSTouchBarDelegate {
 
             if touchBarView == nil {
                 touchBarView = TouchBarViewController()
+                touchBarView?.macScene = scene
             }
 
             item.viewController = touchBarView

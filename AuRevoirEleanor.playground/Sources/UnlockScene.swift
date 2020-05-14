@@ -12,6 +12,7 @@ public class MyView: NSView {
     override public var acceptsFirstResponder: Bool { return true }
     var touchBarPaddle: NSView?
     var trackingTouchIdentity: AnyObject?
+    var hasFinishedSliding: Bool = false
     let paddleWidth: Double = 60
     let paddleHeight: Double = 25
     
@@ -78,8 +79,9 @@ public class MyView: NSView {
             }
         }
         
-        if touchBarPaddle?.frame.maxX == 685 {
+        if touchBarPaddle?.frame.maxX == 685 && hasFinishedSliding == false {
             delegate?.didFinishSliding()
+            hasFinishedSliding = true
         }
         super.touchesMoved(with: event)
     }
