@@ -131,6 +131,10 @@ class TouchBarNewScene: SKScene {
         hole?.appear()
     }
     
+    private func setInitialInstructions() {
+        
+    }
+    
     private func showAttackTutorial() {
         let fadeIn = SKAction.fadeIn(withDuration: 1)
         let fadeOut = SKAction.fadeOut(withDuration: 1)
@@ -256,8 +260,9 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
         if (bodyA.node?.name == "player" || bodyA.node?.name == "coffee") && (bodyB.node?.name == "player" || bodyB.node?.name == "coffee") {
             
             instructions = coffee?.createInstructions()
-            let fadeIn = SKAction.fadeIn(withDuration: 1.5)
             
+            let fadeIn = SKAction.fadeIn(withDuration: 1.5)
+           
             instructions?.position = CGPoint(x: viewWidth * 0.35, y: viewHeight * 0.4)
             
             instructions?.run(fadeIn)

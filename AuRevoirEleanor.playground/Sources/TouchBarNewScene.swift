@@ -47,6 +47,7 @@ public class TouchBarNewScene: SKScene {
         setColumn()
         setInvisibleNode()
         setWordGuesser()
+        setInitialInstructions()
     }
     
     override public func update(_ currentTime: TimeInterval) {
@@ -79,9 +80,21 @@ public class TouchBarNewScene: SKScene {
         physicsWorld.contactDelegate = self
     }
     
+    private func setInitialInstructions() {
+        instructions = coffee?.createInstructions()
+        instructions?.text = "Use the keyboard arrows to move"
+        let fadeIn = SKAction.fadeIn(withDuration: 1.5)
+
+        instructions?.position = CGPoint(x: viewWidth * 0.45, y: viewHeight * 0.4)
+        
+        instructions?.run(fadeIn)
+        
+        addChild(instructions!)
+    }
+    
     private func setPlayer() {
         playerNode = NewPlayer(texture: SKTexture(imageNamed: "charRight1"), color: NSColor.clear, size: CGSize(width: 11, height: 16))
-        playerNode?.position = CGPoint(x: viewWidth * 0.8, y: groundPosition)
+        playerNode?.position = CGPoint(x: viewWidth * 0.1, y: groundPosition)
         
         addChild(playerNode!)
     }
@@ -188,9 +201,17 @@ public class TouchBarNewScene: SKScene {
             switch event.keyCode {
             case KeyIdentifiers.leftArrow.rawValue:
                 self.playerNode?.moveLeft()
+                if self.puzzleState == .none {
+                    let fadeOut = SKAction.fadeOut(withDuration: 1)
+                    self.instructions?.run(fadeOut)
+                }
                 
             case KeyIdentifiers.rightArrow.rawValue:
                 self.playerNode?.moveRight()
+                if self.puzzleState == .none {
+                    let fadeOut = SKAction.fadeOut(withDuration: 1)
+                    self.instructions?.run(fadeOut)
+                }
                 
             case KeyIdentifiers.enter.rawValue:
                 if self.puzzleState == .coffee {
@@ -259,14 +280,12 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
         
         if (bodyA.node?.name == "player" || bodyA.node?.name == "coffee") && (bodyB.node?.name == "player" || bodyB.node?.name == "coffee") {
             
-            instructions = coffee?.createInstructions()
+            instructions?.text = "Press enter to take the coffee"
             let fadeIn = SKAction.fadeIn(withDuration: 1.5)
             
             instructions?.position = CGPoint(x: viewWidth * 0.35, y: viewHeight * 0.4)
             
             instructions?.run(fadeIn)
-            
-            addChild(instructions!)
             
             playerNode?.canMove = false
             puzzleState = .coffee

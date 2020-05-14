@@ -95,7 +95,7 @@ public class Hole: SKSpriteNode {
         lightNode.position = self.position
         lightNode.ambientColor = .clear
         lightNode.lightColor = .white
-        lightNode.falloff = 1.0
+        lightNode.falloff = 0.9
         lightNode.zPosition = 1
         lightNode.physicsBody?.categoryBitMask = BitmaskConstants.affectedByLight
         

@@ -117,7 +117,7 @@ public class MacScene: SKScene {
     }
     
     func unlockBackground() {
-        let wait = SKAction.wait(forDuration: 3.0)
+        let wait = SKAction.wait(forDuration: 1.5)
         let smallWait = SKAction.wait(forDuration: 1.0)
         let fadeOut = SKAction.fadeOut(withDuration: 2.0)
         let fadeIn = SKAction.fadeIn(withDuration: 2.0)
