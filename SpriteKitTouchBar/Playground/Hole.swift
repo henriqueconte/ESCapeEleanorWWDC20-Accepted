@@ -28,7 +28,7 @@ class Hole: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func disappear() {
+    func disappear(_ completion: @escaping () -> ()) {
         
         let increaseLight = SKAction.customAction(withDuration: 0.02) {
             (_, time) -> Void in

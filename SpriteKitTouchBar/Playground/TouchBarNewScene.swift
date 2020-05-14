@@ -334,7 +334,13 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             if puzzleState == .macbook {
                 playerNode?.canMove = false
                 playerNode?.disappear({
-                    self.hole?.disappear()
+                    self.hole?.disappear({
+                        let colorize = SKAction.colorize(with: NSColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1.0), colorBlendFactor: 0, duration: 1.0)
+                        
+                        self.run(colorize) {
+                            
+                        }
+                    })
                 })
             }
         }

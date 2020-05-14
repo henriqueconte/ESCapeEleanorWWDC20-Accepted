@@ -2,15 +2,20 @@ import AppKit
 import Cocoa
 import SpriteKit
 
+protocol SlideToUnlock: class {
+    func didFinishSliding()
+}
+
 
 public class MyView: NSView {
-
     
     override public var acceptsFirstResponder: Bool { return true }
     var touchBarPaddle: NSView?
     var trackingTouchIdentity: AnyObject?
     let paddleWidth: Double = 60
     let paddleHeight: Double = 25
+    
+    weak var delegate: SlideToUnlock? = nil
     
     override public func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -23,7 +28,7 @@ public class MyView: NSView {
             touchBarPaddle?.wantsLayer = true   // Necessary
             touchBarPaddle?.layer?.cornerRadius = 5.0
             touchBarPaddle?.layer?.masksToBounds = true
-            touchBarPaddle?.layer?.backgroundColor = NSColor.clear.cgColor//NSColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1.0).cgColor
+            touchBarPaddle?.layer?.backgroundColor = NSColor.clear.cgColor
             touchBarPaddle?.layer?.zPosition = 2
             
             addSubview(touchBarPaddle!)
@@ -47,8 +52,6 @@ public class MyView: NSView {
                 trackingTouchIdentity = touch.identity
             }
         }
-//        super.touchesBegan(with: event)
-//        print("TOUCHEDDDD")
     }
     
     override public func touchesMoved(with event: NSEvent) {
@@ -67,14 +70,16 @@ public class MyView: NSView {
                 } else {
                     finalLocationX = locationX
                 }
-                //if let delegate = self.delegate,
-                    //delegate.didMoveTo(finalLocationX) {
-                    touchBarPaddle?.frame = NSRect(x: finalLocationX,
-                                                   y: 0,
-                                                   width: paddleWidth,
-                                                   height: paddleHeight)
-             //   }
+  
+                touchBarPaddle?.frame = NSRect(x: finalLocationX,
+                                               y: 0,
+                                               width: paddleWidth,
+                                               height: paddleHeight)
             }
+        }
+        
+        if touchBarPaddle?.frame.maxX == 685 {
+            delegate?.didFinishSliding()
         }
         super.touchesMoved(with: event)
     }
@@ -111,38 +116,43 @@ public class MyView: NSView {
         addSubview(instructions)
         
         NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 2
-            instructions.animator().alphaValue = 0.0
+            context.duration = 90
+            instructions.animator().alphaValue = 1.0
         }, completionHandler: {
             NSAnimationContext.runAnimationGroup({ (context) in
                 context.duration = 2
-                instructions.animator().alphaValue = 1.0
+                instructions.animator().alphaValue = 0.0
             }, completionHandler: {
                 NSAnimationContext.runAnimationGroup({ (context) in
                     context.duration = 2
-                    instructions.animator().alphaValue = 0.0
+                    instructions.animator().alphaValue = 1.0
                 }, completionHandler: {
                     NSAnimationContext.runAnimationGroup({ (context) in
                         context.duration = 2
-                        instructions.animator().alphaValue = 1.0
+                        instructions.animator().alphaValue = 0.0
                     }, completionHandler: {
                         NSAnimationContext.runAnimationGroup({ (context) in
                             context.duration = 2
-                            instructions.animator().alphaValue = 0.0
+                            instructions.animator().alphaValue = 1.0
                         }, completionHandler: {
                             NSAnimationContext.runAnimationGroup({ (context) in
                                 context.duration = 2
-                                instructions.animator().alphaValue = 1.0
+                                instructions.animator().alphaValue = 0.0
                             }, completionHandler: {
                                 NSAnimationContext.runAnimationGroup({ (context) in
                                     context.duration = 2
-                                    instructions.animator().alphaValue = 0.0
+                                    instructions.animator().alphaValue = 1.0
                                 }, completionHandler: {
                                     NSAnimationContext.runAnimationGroup({ (context) in
                                         context.duration = 2
-                                        instructions.animator().alphaValue = 1.0
+                                        instructions.animator().alphaValue = 0.0
                                     }, completionHandler: {
-                                        
+                                        NSAnimationContext.runAnimationGroup({ (context) in
+                                            context.duration = 2
+                                            instructions.animator().alphaValue = 1.0
+                                        }, completionHandler: {
+                                            
+                                        })
                                     })
                                 })
                             })
@@ -151,6 +161,8 @@ public class MyView: NSView {
                 })
             })
         })
+        
+        
 
     }
     

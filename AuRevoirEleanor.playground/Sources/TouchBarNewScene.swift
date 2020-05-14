@@ -10,6 +10,10 @@ import Foundation
 import SpriteKit
 
 
+protocol EndCaveScene: class {
+    func didFinishScene()
+}
+
 public class TouchBarNewScene: SKScene {
     
     var backgroundNode: SKSpriteNode?
@@ -28,6 +32,9 @@ public class TouchBarNewScene: SKScene {
     var puzzleState: PuzzleState = .none
     var updateTime: Double = 0.0
     var monstersAllowed: Bool = false
+    
+    var macScene: MacScene?
+    var caveDelegate: EndCaveScene?
     
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -331,7 +338,13 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             if puzzleState == .macbook {
                 playerNode?.canMove = false
                 playerNode?.disappear({
-                    self.hole?.disappear()
+                    self.hole?.disappear({ 
+                        let colorize = SKAction.colorize(with: NSColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1.0), colorBlendFactor: 0, duration: 1.0)
+                        
+                        self.run(colorize) {
+                            self.caveDelegate?.didFinishScene()
+                        }
+                    })
                 })
             }
         }

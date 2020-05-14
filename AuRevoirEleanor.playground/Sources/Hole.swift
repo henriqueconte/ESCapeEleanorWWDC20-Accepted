@@ -28,15 +28,7 @@ public class Hole: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func disappear() {
-        
-        let increaseLight = SKAction.customAction(withDuration: 0.02) {
-            (_, time) -> Void in
-            
-            for element in self.lightNodes {
-                element.falloff -= 0.05
-            }
-        }
+    func disappear(_ completion: @escaping () -> ()) {
         
         let reduceLight = SKAction.customAction(withDuration: 0.005) {
             (_, time) -> Void in
@@ -46,17 +38,13 @@ public class Hole: SKSpriteNode {
             }
         }
         
-        let increaseLightSequence = SKAction.sequence([increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight
-            ,increaseLight,increaseLight,increaseLight,increaseLight,increaseLight
-            ,increaseLight,increaseLight])
-        
         let reduceLightSequence = SKAction.sequence([reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight,reduceLight])
         
         let wait = SKAction.wait(forDuration: 1)
         
-        
         self.run(SKAction.sequence([wait, reduceLightSequence])) {
             self.isHidden = true
+            completion()
         }
     }
     

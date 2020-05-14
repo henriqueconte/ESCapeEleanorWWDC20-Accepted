@@ -15,13 +15,14 @@ public class TouchBarViewController: NSViewController{
     private lazy var newView: MyView = {
         let view = MyView(frame: self.view.bounds)
         view.autoresizingMask = [.width, .height]
+        view.delegate = self
+        view.isHidden = true
         
         return view
     }()
 
     var scene: TouchBarNewScene?
     var macScene: MacScene?
-    
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +39,23 @@ public class TouchBarViewController: NSViewController{
         if skView.scene == nil {
 
             scene = TouchBarNewScene(fileNamed: "StartScene")!
-            //scene?.macScene = macScene
+            scene?.macScene = macScene
+            scene?.caveDelegate = self
+            
             skView.presentScene(scene)
         }
+    }
+}
+
+extension TouchBarViewController: SlideToUnlock {
+    func didFinishSliding() {
+    
+    }
+}
+
+extension TouchBarViewController: EndCaveScene {
+    func didFinishScene() {
+        newView.isHidden = false
     }
 }
 
