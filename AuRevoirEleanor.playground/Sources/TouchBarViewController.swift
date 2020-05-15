@@ -56,6 +56,7 @@ extension TouchBarViewController: SlideToUnlock {
 
 extension TouchBarViewController: EndCaveScene {
     func didFinishScene() {
+        scene?.pauseBackgroundSound()
         newView.isHidden = false
     }
 }

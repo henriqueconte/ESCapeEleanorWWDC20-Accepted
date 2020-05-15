@@ -6,6 +6,7 @@
 //  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
 //
 
+import AVFoundation
 import Foundation
 import SpriteKit
 
@@ -39,6 +40,8 @@ public class TouchBarNewScene: SKScene {
     var backgroundMusic = SKAction.playSoundFileNamed("DANCING.mp3", waitForCompletion: true)
     var backgroundMusicNode: SKSpriteNode?
     var soundEffectsNode: SKSpriteNode?
+    
+    var player: AVAudioPlayer?
     
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -89,21 +92,15 @@ public class TouchBarNewScene: SKScene {
     }
     
     private func setBackgroundMusic() {
-        backgroundMusicNode = SKSpriteNode()
-        backgroundMusicNode?.run(backgroundMusic) {
-            self.backgroundMusicNode?.run(self.backgroundMusic){
-                self.backgroundMusicNode?.run(self.backgroundMusic){
-                    self.backgroundMusicNode?.run(self.backgroundMusic){
-                        self.backgroundMusicNode?.run(self.backgroundMusic){
-                            self.backgroundMusicNode?.run(self.backgroundMusic){
-                                self.backgroundMusicNode?.run(self.backgroundMusic)
-                            }
-                        }
-                    }
-                }
-            }
+        let url = Bundle.main.url(forResource: "DANCING", withExtension: "mp3")
+        do {
+            player = try AVAudioPlayer(contentsOf: url ?? URL(fileURLWithPath: ""))
+            player?.prepareToPlay()
+            player?.play()
+            player?.numberOfLoops = 20
+        } catch let error {
+            print(error.localizedDescription)
         }
-        self.addChild(backgroundMusicNode!)
     }
     
     private func setPhysicsWorld() {
@@ -229,6 +226,10 @@ public class TouchBarNewScene: SKScene {
         let soundAction = SKAction.playSoundFileNamed(fileNamed, waitForCompletion: false)
         
         soundEffectsNode?.run(soundAction)
+    }
+    
+    func pauseBackgroundSound() {
+        player?.setVolume(0, fadeDuration: 2.0)
     }
     
     func setKeyboardEvents() {

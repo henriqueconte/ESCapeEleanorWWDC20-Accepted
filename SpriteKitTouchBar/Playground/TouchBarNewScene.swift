@@ -5,7 +5,7 @@
 //  Created by Henrique Figueiredo Conte on 06/05/20.
 //  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
 //
-
+import AVFoundation
 import Foundation
 import SpriteKit
 
@@ -31,6 +31,8 @@ class TouchBarNewScene: SKScene {
     
     var backgroundMusic = SKAction.playSoundFileNamed("DANCING.mp3", waitForCompletion: true)
     var backgroundMusicNode: SKSpriteNode?
+    
+    var player: AVAudioPlayer?
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -64,6 +66,18 @@ class TouchBarNewScene: SKScene {
             }
         }
 
+    }
+    
+    func playSound(file:String, ext:String) -> Void {
+        let url = Bundle.main.url(forResource: file, withExtension: ext)!
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.prepareToPlay()
+            player?.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     private func setBackground() {
