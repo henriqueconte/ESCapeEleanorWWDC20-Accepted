@@ -29,6 +29,9 @@ class TouchBarNewScene: SKScene {
     var updateTime: Double = 0.0
     var monstersAllowed: Bool = false
     
+    var backgroundMusic = SKAction.playSoundFileNamed("DANCING.mp3", waitForCompletion: true)
+    var backgroundMusicNode: SKSpriteNode?
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setPhysicsWorld()
@@ -40,6 +43,7 @@ class TouchBarNewScene: SKScene {
         setColumn()
         setInvisibleNode()
         setWordGuesser()
+        setBackgroundMusic()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -73,6 +77,31 @@ class TouchBarNewScene: SKScene {
     
     private func setPhysicsWorld() {
         physicsWorld.contactDelegate = self
+    }
+    
+    private func setBackgroundMusic() {
+//        self.run(backgroundMusic) {
+//            self.run(self.backgroundMusic) {
+//                self.run(self.backgroundMusic)
+//            }
+//        }
+        backgroundMusicNode = SKSpriteNode()//SKAudioNode(//SKAudioNode(fileNamed: "DANCING.mp3")
+        backgroundMusicNode?.run(backgroundMusic) {
+            self.backgroundMusicNode?.run(self.backgroundMusic){
+                self.backgroundMusicNode?.run(self.backgroundMusic){
+                    self.backgroundMusicNode?.run(self.backgroundMusic){
+                        self.backgroundMusicNode?.run(self.backgroundMusic){
+                            self.backgroundMusicNode?.run(self.backgroundMusic){
+                                self.backgroundMusicNode?.run(self.backgroundMusic)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //backgroundMusicNode?.autoplayLooped = true
+        //self.run(backgroundMusic)
+        self.addChild(backgroundMusicNode!)
     }
     
     private func setPlayer() {

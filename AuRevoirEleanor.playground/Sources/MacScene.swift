@@ -128,6 +128,10 @@ public class MacScene: SKScene {
         hole?.run(fadeInSequence)
         openPadlock?.run(SKAction.sequence([wait, fadeIn, smallWait, fadeOut])) {
             self.playerNode?.appearOnMacBook(completion: {
+                
+                let sound = SKAction.playSoundFileNamed("medievalSound.mp3", waitForCompletion: false)
+                self.run(sound)
+                
                 self.finalMessage?.run(fadeIn)
             })
         }

@@ -50,6 +50,7 @@ public class TouchBarViewController: NSViewController{
 extension TouchBarViewController: SlideToUnlock {
     func didFinishSliding() {
         scene?.macScene?.unlockBackground()
+        scene?.playSound(fileNamed: "unlockSound.mp3")
     }
 }
 

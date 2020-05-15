@@ -14,6 +14,8 @@
 		803CD21B246496100056B269 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21A246496100056B269 /* Coffee.swift */; };
 		803CD21D2464A1200056B269 /* PuzzleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803CD21C2464A1200056B269 /* PuzzleState.swift */; };
 		806C8226246C7AEC0094F74C /* NewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C8225246C7AEC0094F74C /* NewPlayer.swift */; };
+		8096FE84246F0093002807D5 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096FE83246F0093002807D5 /* SoundPlayer.swift */; };
+		8096FE86246F04A7002807D5 /* DANCING.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8096FE85246F04A7002807D5 /* DANCING.mp3 */; };
 		80A7959C2469B29100B27818 /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959B2469B29100B27818 /* Hole.swift */; };
 		80A7959E2469BB4A00B27818 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959D2469BB4A00B27818 /* Column.swift */; };
 		80A795A02469D5F900B27818 /* NewEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7959F2469D5F900B27818 /* NewEnemy.swift */; };
@@ -48,6 +50,8 @@
 		803CD21A246496100056B269 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		803CD21C2464A1200056B269 /* PuzzleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleState.swift; sourceTree = "<group>"; };
 		806C8225246C7AEC0094F74C /* NewPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPlayer.swift; path = SpriteKitTouchBar/Playground/NewPlayer.swift; sourceTree = SOURCE_ROOT; };
+		8096FE83246F0093002807D5 /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		8096FE85246F04A7002807D5 /* DANCING.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DANCING.mp3; sourceTree = "<group>"; };
 		80A7959B2469B29100B27818 /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
 		80A7959D2469BB4A00B27818 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		80A7959F2469D5F900B27818 /* NewEnemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEnemy.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				803CD21C2464A1200056B269 /* PuzzleState.swift */,
 				80A7959B2469B29100B27818 /* Hole.swift */,
 				80DAF2FE246B149F005BFDC2 /* WordGuess.swift */,
+				8096FE85246F04A7002807D5 /* DANCING.mp3 */,
+				8096FE83246F0093002807D5 /* SoundPlayer.swift */,
 			);
 			path = Playground;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 				80DFBD732451FE0B000D52AA /* Game.sks in Resources */,
 				80DFBD7D24528BC8000D52AA /* Explosion.sks in Resources */,
 				80AC16A82450BA71002D1AC3 /* Assets.xcassets in Resources */,
+				8096FE86246F04A7002807D5 /* DANCING.mp3 in Resources */,
 				8017516924533CBA00D8C85E /* StartScene.sks in Resources */,
 				80AC16AB2450BA71002D1AC3 /* Main.storyboard in Resources */,
 			);
@@ -311,6 +318,7 @@
 				80175164245328EA00D8C85E /* StartScene.swift in Sources */,
 				80D254D824634103003D5251 /* PixelCategory.swift in Sources */,
 				803CD21924648CA00056B269 /* BitmaskConstants.swift in Sources */,
+				8096FE84246F0093002807D5 /* SoundPlayer.swift in Sources */,
 				80D254DF24634103003D5251 /* TouchBarViewController.swift in Sources */,
 				803CD21D2464A1200056B269 /* PuzzleState.swift in Sources */,
 				80D254DC24634103003D5251 /* EndMenuTouchBarScene.swift in Sources */,

@@ -36,6 +36,10 @@ public class TouchBarNewScene: SKScene {
     var macScene: MacScene?
     var caveDelegate: EndCaveScene?
     
+    var backgroundMusic = SKAction.playSoundFileNamed("DANCING.mp3", waitForCompletion: true)
+    var backgroundMusicNode: SKSpriteNode?
+    var soundEffectsNode: SKSpriteNode?
+    
     override public func didMove(to view: SKView) {
         super.didMove(to: view)
         setPhysicsWorld()
@@ -48,6 +52,8 @@ public class TouchBarNewScene: SKScene {
         setInvisibleNode()
         setWordGuesser()
         setInitialInstructions()
+        setBackgroundMusic()
+        setSoundEffectsNode()
     }
     
     override public func update(_ currentTime: TimeInterval) {
@@ -74,6 +80,30 @@ public class TouchBarNewScene: SKScene {
         if let background = self.childNode(withName: "background") as? SKSpriteNode {
             background.lightingBitMask = BitmaskConstants.affectedByLight
         }
+    }
+    
+    private func setSoundEffectsNode() {
+        soundEffectsNode = SKSpriteNode()
+        
+        self.addChild(soundEffectsNode!)
+    }
+    
+    private func setBackgroundMusic() {
+        backgroundMusicNode = SKSpriteNode()
+        backgroundMusicNode?.run(backgroundMusic) {
+            self.backgroundMusicNode?.run(self.backgroundMusic){
+                self.backgroundMusicNode?.run(self.backgroundMusic){
+                    self.backgroundMusicNode?.run(self.backgroundMusic){
+                        self.backgroundMusicNode?.run(self.backgroundMusic){
+                            self.backgroundMusicNode?.run(self.backgroundMusic){
+                                self.backgroundMusicNode?.run(self.backgroundMusic)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        self.addChild(backgroundMusicNode!)
     }
     
     private func setPhysicsWorld() {
@@ -191,7 +221,14 @@ public class TouchBarNewScene: SKScene {
                 self.playerNode?.canMove = true
                 self.puzzleState = .macbook
             }
+            self.playSound(fileNamed: "stoneSound.mp3") 
         }
+    }
+    
+    func playSound(fileNamed: String) {
+        let soundAction = SKAction.playSoundFileNamed(fileNamed, waitForCompletion: false)
+        
+        soundEffectsNode?.run(soundAction)
     }
     
     func setKeyboardEvents() {
@@ -218,7 +255,8 @@ public class TouchBarNewScene: SKScene {
                     let fadeOut = SKAction.fadeOut(withDuration: 1)
                     
                     self.coffee?.disappear()
-        
+                    self.playSound(fileNamed: "coffeeSound.mp3")
+                    
                     self.playerNode?.animateLightNodes {
                         self.playerNode?.canMove = true
                     }
@@ -232,6 +270,7 @@ public class TouchBarNewScene: SKScene {
             case KeyIdentifiers.space.rawValue:
                 if self.playerNode?.canAttack ?? false {
                     self.playerNode?.shoot()
+                    self.playSound(fileNamed: "throwSound.mp3")
                     self.monstersAllowed = true
                     
                     if self.instructions?.alpha ?? 0.0 > 0.0 {
@@ -270,6 +309,7 @@ public class TouchBarNewScene: SKScene {
             closure()
         }
     }
+
 }
 
 extension TouchBarNewScene: SKPhysicsContactDelegate {
@@ -323,6 +363,8 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             monster?.disable()
             monster?.texture = SKTexture(imageNamed: "buildSucceeded")
             
+            playSound(fileNamed: "successSound.mp3")
+            
             let increaseAction = SKAction.resize(byWidth: 9, height: 3, duration: 1.0)
             
             
@@ -344,6 +386,8 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             
             monster?.disable()
             monster?.texture = SKTexture(imageNamed: "buildFailed")
+            
+            playSound(fileNamed: "failSound.m4a")
             
             let increaseAction = SKAction.resize(byWidth: 9, height: 3, duration: 1.0)
             

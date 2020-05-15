@@ -104,6 +104,12 @@ public class WordGuess: SKSpriteNode {
                 
             }
         }
+        
+        let soundAction = SKAction.playSoundFileNamed("successSound.mp3", waitForCompletion: false)
+        let wait = SKAction.wait(forDuration: 0.3)
+        let soundSequence = SKAction.sequence([soundAction, wait, soundAction, wait, soundAction])
+        
+        self.run(soundSequence)
     }
     
     func wrongWord() {
@@ -115,6 +121,12 @@ public class WordGuess: SKSpriteNode {
                 element.text = ""
             }
         }
+        
+        let soundAction = SKAction.playSoundFileNamed("failSound.m4a", waitForCompletion: false)
+        let wait = SKAction.wait(forDuration: 0.3)
+        let soundSequence = SKAction.sequence([soundAction, wait, soundAction, wait, soundAction])
+        
+        self.run(soundSequence)
     }
     
 }
