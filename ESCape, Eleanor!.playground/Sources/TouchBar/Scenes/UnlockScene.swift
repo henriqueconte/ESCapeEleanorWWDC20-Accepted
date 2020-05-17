@@ -7,7 +7,7 @@ protocol SlideToUnlock: class {
 }
 
 
-public class MyView: NSView {
+public class UnlockView: NSView {
     
     override public var acceptsFirstResponder: Bool { return true }
     var touchBarPaddle: NSView?
@@ -18,6 +18,7 @@ public class MyView: NSView {
     
     weak var delegate: SlideToUnlock? = nil
     
+    // Draws elements inside the view
     override public func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
@@ -39,14 +40,15 @@ public class MyView: NSView {
             
             touchBarPaddle?.addSubview(imageView)
         }
-        // #1d161d
+        
         NSColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1).setFill()
 
         dirtyRect.fill()
         
         addInstructions()
     }
-
+    
+    // Treats user touches
     override public func touchesBegan(with event: NSEvent) {
         if trackingTouchIdentity == nil {
             if let touch = event.touches(matching: .began, in: self).first, touch.type == .direct {
@@ -55,6 +57,7 @@ public class MyView: NSView {
         }
     }
     
+    // Treats user touches
     override public func touchesMoved(with event: NSEvent) {
         if let trackingTouchIdentity = trackingTouchIdentity {
             let relevantTouches = event.touches(matching: .moved, in: self)
@@ -86,6 +89,7 @@ public class MyView: NSView {
         super.touchesMoved(with: event)
     }
 
+    // Treats user touches
     override public func touchesEnded(with event: NSEvent) {
         if let trackingTouchIdentity = trackingTouchIdentity {
             let relevantTouches = event.touches(matching: .ended, in: self)
@@ -97,6 +101,7 @@ public class MyView: NSView {
         super.touchesEnded(with: event)
     }
 
+    // Treats user touches
     override public func touchesCancelled(with event: NSEvent) {
         if let trackingTouchIdentity = trackingTouchIdentity {
             let relevantTouches = event.touches(matching: .cancelled, in: self)
@@ -108,6 +113,7 @@ public class MyView: NSView {
         super.touchesCancelled(with: event)
     }
     
+    // Add label to tell the user to slide to unlock
     func addInstructions() {
         let instructions = NSText(frame: NSRect(x: 300, y: 0, width: 200, height: 23))
         instructions.insertText("Slide to unlock")

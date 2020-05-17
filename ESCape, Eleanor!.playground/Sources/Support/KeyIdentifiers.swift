@@ -1,14 +1,6 @@
-//
-//  KeyIdentifiers.swift
-//  SpriteKitTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 23/04/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import Foundation
 
-
+// System identifiers for keyboard keys
 public enum KeyIdentifiers: UInt16 {
     case a = 0
     case b = 11

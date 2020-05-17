@@ -1,11 +1,3 @@
-//
-//  GameScene.swift
-//  ProjectTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 12/01/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import Cocoa
 import Foundation
 import SpriteKit
@@ -38,6 +30,7 @@ public class MacScene: SKScene {
         setFinalMessage()
     }
     
+    // MARK:- Sets initial elements
     private func setOnboardMessage() {
         
         onboardMessage = SKLabelNode(text: "Click here to start and then \nlook at your Touch Bar")
@@ -116,6 +109,7 @@ public class MacScene: SKScene {
         addChild(finalMessage!)
     }
     
+    // Shows elements on screen after the touch bar phase ends
     func unlockBackground() {
         let wait = SKAction.wait(forDuration: 1.5)
         let smallWait = SKAction.wait(forDuration: 1.0)

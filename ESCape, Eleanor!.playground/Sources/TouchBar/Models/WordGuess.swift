@@ -1,15 +1,8 @@
-//
-//  Hole.swift
-//  SpriteKitTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 07/05/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import Foundation
 import SpriteKit
 
 
+// Mini game to guess the char favorite programming language
 public class WordGuess: SKSpriteNode {
     
     var letterSlots: [SKLabelNode] = []
@@ -32,6 +25,9 @@ public class WordGuess: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK:- Sets initial elements
+    
+    // This creates the label nodes with the SKSpriteNodes to indicate slots for letters
     private func setLetterSlots() {
         
         var separator: Int = 0
@@ -56,6 +52,7 @@ public class WordGuess: SKSpriteNode {
         
     }
     
+    // Treats the letter sent by the user
     func readLetter(letter: String) -> Bool {
         
         // \u{7F} means delete key
@@ -95,6 +92,7 @@ public class WordGuess: SKSpriteNode {
         return false
     }
     
+    // Called when the user guessed the word correctly
     func correctWord() {
         let colorToBlue = SKAction.colorize(with: NSColor(red: 60/255, green: 153/255, blue: 252/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)
         let colorToWhite = SKAction.colorize(with: NSColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)
@@ -112,6 +110,7 @@ public class WordGuess: SKSpriteNode {
         self.run(soundSequence)
     }
     
+    // Called when the user guessed the word incorrectly
     func wrongWord() {
         let colorToRed = SKAction.colorize(with: NSColor(red: 226/255, green: 21/255, blue: 21/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)
         let colorToWhite = SKAction.colorize(with: NSColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1), colorBlendFactor: 1.0, duration: 0.5)

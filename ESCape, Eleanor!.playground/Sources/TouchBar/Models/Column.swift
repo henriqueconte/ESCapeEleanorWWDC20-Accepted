@@ -1,11 +1,3 @@
-//
-//  Column.swift
-//  SpriteKitTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 07/05/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import Foundation
 import SpriteKit
 
@@ -37,7 +29,7 @@ public class Column: SKSpriteNode {
         }
     }
     
-    
+    // MARK:- Sets initial elements
     private func setDefaultPhysicsBody() {
         let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width * 0.5,
                                                             height: self.frame.height * 0.5)

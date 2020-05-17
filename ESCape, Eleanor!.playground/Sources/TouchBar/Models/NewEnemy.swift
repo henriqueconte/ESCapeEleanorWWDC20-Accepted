@@ -1,11 +1,3 @@
-//
-//  NewEnemy.swift
-//  SpriteKitTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 06/05/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import Foundation
 import SpriteKit
 import AppKit
@@ -24,7 +16,7 @@ public class NewEnemy: SKSpriteNode {
         setRandomAsset()
     }
 
-    
+    // MARK:- Sets initial elements
     private func setDefaultPhysicsBody(from node: SKNode) {
         let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.frame.width * 0.5,
                                                             height: node.frame.height * 0.5)
@@ -66,6 +58,7 @@ public class NewEnemy: SKSpriteNode {
         self.run(spinningAction)
     }
     
+    // Select between error and warning assets
     private func setRandomAsset() {
         let randomNumber = Int.random(in: 0...1)
         
@@ -102,6 +95,7 @@ public class NewEnemy: SKSpriteNode {
         self.zRotation = 0
     }
     
+    // Removes the element from screen using light effects
     func die() {
         
         let reduceLight = SKAction.customAction(withDuration: 0.005) {

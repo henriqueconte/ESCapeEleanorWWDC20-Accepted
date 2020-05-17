@@ -1,11 +1,3 @@
-//
-//  TouchBarNewScene.swift
-//  SpriteKitTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 06/05/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import AVFoundation
 import Foundation
 import SpriteKit
@@ -78,6 +70,8 @@ public class TouchBarNewScene: SKScene {
         }
 
     }
+    
+    // MARK:- Sets initial elements
     
     private func setBackground() {
         if let background = self.childNode(withName: "background") as? SKSpriteNode {
@@ -222,6 +216,8 @@ public class TouchBarNewScene: SKScene {
         }
     }
     
+    
+    // Plays a file with the given name
     func playSound(fileNamed: String) {
         let soundAction = SKAction.playSoundFileNamed(fileNamed, waitForCompletion: false)
         
@@ -232,6 +228,7 @@ public class TouchBarNewScene: SKScene {
         player?.setVolume(0, fadeDuration: 2.0)
     }
     
+    // Prepares to treat keyboard keys press
     func setKeyboardEvents() {
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event) -> NSEvent? in
@@ -296,20 +293,6 @@ public class TouchBarNewScene: SKScene {
             return event
         }
     }
-    
-    func explode(node: SKSpriteNode, closure: @escaping () -> ()) {
-        let explosion = SKEmitterNode(fileNamed: "Explosion")!
-        addChild(explosion)
-        explosion.resetSimulation()
-        explosion.particleTexture = node.texture
-        explosion.position = CGPoint(x: node.position.x, y: node.position.y - node.size.height/2)
-        explosion.particleSize = CGSize(width: node.size.width/2, height: node.size.height/2)
-        
-        self.run(SKAction.wait(forDuration: 1.5)) {
-            explosion.removeFromParent()
-            closure()
-        }
-    }
 
 }
 
@@ -319,6 +302,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
         
+        // When the player touches the coffee
         if (bodyA.node?.name == "player" || bodyA.node?.name == "coffee") && (bodyB.node?.name == "player" || bodyB.node?.name == "coffee") {
             
             instructions?.text = "Press enter to take the coffee"
@@ -332,6 +316,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             puzzleState = .coffee
         }
         
+        // When the player hits checkpoints on the map
         if (bodyA.node?.name == "player" || bodyA.node?.name == "invisibleNode") && (bodyB.node?.name == "player" || bodyB.node?.name == "invisibleNode") {
             
             if instructions?.text == "Look! An exit has just appeared!" {
@@ -345,6 +330,8 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             }
         }
         
+        
+        // When the player attack hits an enemy
         if (bodyA.node?.name == "hammer" || bodyA.node?.name == "monster") && (bodyB.node?.name == "hammer" || bodyB.node?.name == "monster") {
             
             var hammer: SKSpriteNode?
@@ -374,6 +361,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             }
         }
         
+        // When the player is hit by a monster
         if (bodyA.node?.name == "player" || bodyA.node?.name == "monster") && (bodyB.node?.name == "player" || bodyB.node?.name == "monster") {
             
             var monster: NewEnemy?
@@ -397,6 +385,7 @@ extension TouchBarNewScene: SKPhysicsContactDelegate {
             }
         }
         
+        // When the player is on the hole ready to get out the cave
         if (bodyA.node?.name == "player" || bodyA.node?.name == "hole") && (bodyB.node?.name == "player" || bodyB.node?.name == "hole") {
             
             if puzzleState == .macbook {

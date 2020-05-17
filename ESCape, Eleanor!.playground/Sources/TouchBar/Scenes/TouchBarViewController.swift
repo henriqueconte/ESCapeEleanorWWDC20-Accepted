@@ -12,8 +12,8 @@ public class TouchBarViewController: NSViewController{
         return gameView
     }()
     
-    private lazy var newView: MyView = {
-        let view = MyView(frame: self.view.bounds)
+    private lazy var unlockView: UnlockView = {
+        let view = UnlockView(frame: self.view.bounds)
         view.autoresizingMask = [.width, .height]
         view.delegate = self
         view.isHidden = true
@@ -32,7 +32,7 @@ public class TouchBarViewController: NSViewController{
         view = NSView()
         
         view.addSubview(skView)
-        view.addSubview(newView)
+        view.addSubview(unlockView)
     }
 
     override public func viewDidAppear() {
@@ -57,7 +57,7 @@ extension TouchBarViewController: SlideToUnlock {
 extension TouchBarViewController: EndCaveScene {
     func didFinishScene() {
         scene?.pauseBackgroundSound()
-        newView.isHidden = false
+        unlockView.isHidden = false
     }
 }
 

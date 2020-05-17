@@ -1,11 +1,3 @@
-//
-//  Hole.swift
-//  SpriteKitTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 07/05/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import Foundation
 import SpriteKit
 
@@ -28,6 +20,7 @@ public class Hole: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Disappear using light effects
     func disappear(_ completion: @escaping () -> ()) {
         
         let reduceLight = SKAction.customAction(withDuration: 0.005) {
@@ -48,17 +41,7 @@ public class Hole: SKSpriteNode {
         }
     }
     
-    func createInstructions() -> SKLabelNode {
-        let instruction = SKLabelNode(text: "Press enter to take the coffee")
-        instruction.fontSize = 15
-        instruction.fontName = "Arial Rounded MT Bold"
-        instruction.fontColor = .white
-        instruction.zPosition = 1
-        instruction.alpha = 0
-        
-        return instruction
-    }
-    
+    // Appear using light efects
     func appear() {
         let increaseLight = SKAction.customAction(withDuration: 0.01) {
             (_, time) -> Void in
@@ -77,6 +60,7 @@ public class Hole: SKSpriteNode {
         self.run(SKAction.group([increaseLightSequence, fadeIn]))
     }
     
+    // MARK:- Sets initial elements
     private func setDefaultPhysicsBody() {
         let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width * 0.05,
                                                             height: self.frame.height * 0.3)

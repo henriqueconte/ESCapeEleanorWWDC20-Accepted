@@ -1,11 +1,3 @@
-//
-//  NewPlayer.swift
-//  SpriteKitTouchBar
-//
-//  Created by Henrique Figueiredo Conte on 06/05/20.
-//  Copyright © 2020 Henrique Figueiredo Conte. All rights reserved.
-//
-
 import Foundation
 import SpriteKit
 import AppKit
@@ -28,6 +20,7 @@ public class NewPlayer: SKSpriteNode {
         setLightNodes()
     }
     
+    // Moves right changing the char asset
     func moveRight() {
         
         if canMove {
@@ -50,6 +43,7 @@ public class NewPlayer: SKSpriteNode {
         
     }
     
+    // Moves left changing the char asset
     func moveLeft() {
         
         if canMove {
@@ -71,6 +65,7 @@ public class NewPlayer: SKSpriteNode {
         
     }
     
+    // When enabled, the char shoots
     func shoot() {
         let shootNode = SKSpriteNode(texture: SKTexture(imageNamed: "hammer"), color: .clear, size: CGSize(width: 10, height: 10))
         var moveAction: SKAction = SKAction()
@@ -110,6 +105,8 @@ public class NewPlayer: SKSpriteNode {
         canAttack = false
     }
     
+    // MARK:- Sets initial elements
+    
     private func setDefaultPhysicsBody(from node: SKNode) {
         let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.frame.width * 0.5,
                                                             height: node.frame.height * 0.5)
@@ -147,6 +144,7 @@ public class NewPlayer: SKSpriteNode {
         }
     }
     
+    // Used to show that something happened
     func animateLightNodes(completion: @escaping () -> ()) {
  
         let reduceLight = SKAction.customAction(withDuration: 0.01) {
@@ -180,6 +178,7 @@ public class NewPlayer: SKSpriteNode {
         
     }
     
+    // Disappear using light nodes effects
     func disappear(_ completion: @escaping () -> ()) {
         
         let wait = SKAction.wait(forDuration: 1)
@@ -203,6 +202,7 @@ public class NewPlayer: SKSpriteNode {
         }
     }
     
+    // Shows the character on the macbook scene
     func appearOnMacBook(completion: @escaping () -> ()) {
         let moveUp = SKAction.move(by: CGVector(dx: 0, dy: 25), duration: 3.0)
         

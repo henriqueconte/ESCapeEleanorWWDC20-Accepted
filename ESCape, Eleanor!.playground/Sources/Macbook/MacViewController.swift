@@ -5,8 +5,6 @@ import SpriteKit
 
 open class MacViewController: NSViewController{
     
-    //public var touchBarViewController: TouchBarViewController!
-    
     var scene: MacScene?
     public var touchBarView: TouchBarViewController!
     
@@ -39,16 +37,8 @@ open class MacViewController: NSViewController{
 
 extension MacViewController: NSTouchBarDelegate {
 
+    // Instantiates the touch bar that will be presented
     override public func makeTouchBar() -> NSTouchBar? {
-
- //       let touchBar = NSTouchBar()
-        
-//        touchBar.delegate = self
-//        touchBar.customizationIdentifier = .colorPickerBar
-//        touchBar.defaultItemIdentifiers = [.colorLabel, .colorScrubber]
-//        touchBar.customizationAllowedItemIdentifiers = [.colorLabel, .colorScrubber]
-//
-//        return touchBar
         
         let bar = NSTouchBar()
 
@@ -59,24 +49,9 @@ extension MacViewController: NSTouchBarDelegate {
         
     }
 
+    // Instantiates the elements that will be presented on the touch bar
     public func touchBar(_ touchBar: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
 
-
-//        let item = NSCustomTouchBarItem(identifier: .colorLabel)
-//
-//        switch identifier {
-//        case NSTouchBarItem.Identifier.colorLabel:
-//
-//            if touchBarViewController == nil {
-//                touchBarViewController = TouchBarViewController()
-//                touchBarViewController.macScene = scene
-//            }
-//            item.viewController = touchBarViewController
-//
-//            return item
-//
-//        default: return nil
-//        }
         switch identifier {
         case NSTouchBarItem.Identifier.touchBarView:
             let item = NSCustomTouchBarItem(identifier: .touchBarView)
