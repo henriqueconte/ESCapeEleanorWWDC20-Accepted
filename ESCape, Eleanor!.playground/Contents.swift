@@ -2,10 +2,10 @@
 //: # ESCape, Eleanor! 🕊
 //:  by [Henrique Conte](https://github.com/henriqueconte)
 /*:
- The usage of unusual and different technologies always fascinated me, so I decided to create a mini game showing a little bit of what we can do with the Touch Bar.
+ The usage of unusual and different technologies always fascinated me, so I decided to create a mini-game showing a little bit of what we can do with the Touch Bar.
  
  
- Your objective will be to help Eleanor, a young and brave programmer to escape from the cave she ended while searching for exotic technologies. In order to do that, you will just have to:
+ Your objective will be to help Eleanor, a young and brave developer, to escape from the cave she ended while searching for exotic technologies. To do that, you will just have to:
  
  
  1. Show the Assistant Editor with the LiveView selected
@@ -20,10 +20,10 @@
  
  ### Controls
  
- Use your arrow keys to walk ⬅️ ➡️. More commands will be taught during the gameplay.
+ Use your arrow keys to walk ⬅️ ➡️. More commands are going to be taught during the gameplay.
  
  
-### Take a cup of coffee and let's start with the demo!
+### Take a cup of coffee, and let's start with the demo!
  
   ![Coffee](smallCoffee.png)
  */
